@@ -1,48 +1,48 @@
 
 <style>
-  .site-wrap { font-family: var(--font-sans); max-width: 680px; margin: 0 auto; }
+  .site-wrap { font-family: var(--font-sans); max-width: 850px; margin: 0 auto; }
   .site-frame { border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-primary); }
   .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; border-bottom: 0.5px solid var(--color-border-tertiary); }
   .nav-logo { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
   .nav-links { display: flex; gap: 14px; }
-  .nav-link { font-size: 10px; color: var(--color-text-secondary); }
+  .nav-link { font-size: 12px; color: var(--color-text-secondary); }
   .hero { background: #f5f0e8; padding: 28px 20px 20px; text-align: center; position: relative; }
   .hero-title { font-size: 26px; font-weight: 500; color: #3d2e1a; letter-spacing: -0.5px; }
-  .hero-sub { font-size: 10px; color: #7a6a50; margin-top: 6px; }
+  .hero-sub { font-size: 12px; color: #7a6a50; margin-top: 6px; }
   .section { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
   .left-col { padding: 16px; border-right: 0.5px solid var(--color-border-tertiary); }
   .right-col { padding: 16px; }
-  .section-title { font-size: 11px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; }
+  .section-title { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; }
   .article-card { margin-bottom: 12px; }
   .article-img { width: 100%; height: 56px; background: #c8d4c0; border-radius: 6px; margin-bottom: 6px; }
-  .article-title { font-size: 10px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; }
-  .article-meta { font-size: 9px; color: var(--color-text-tertiary); margin-top: 3px; }
+  .article-title { font-size: 12px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; }
+  .article-meta { font-size: 12px; color: var(--color-text-tertiary); margin-top: 3px; }
   .right-article { display: flex; flex-direction: column; gap: 10px; }
   .right-item { padding-bottom: 10px; border-bottom: 0.5px solid var(--color-border-tertiary); }
   .right-item:last-child { border-bottom: none; }
   .author-card { background: var(--color-background-secondary); border-radius: 8px; padding: 10px; margin-bottom: 10px; text-align: center; }
   .author-avatar { width: 32px; height: 32px; border-radius: 50%; background: #c0a882; margin: 0 auto 6px; }
-  .author-name { font-size: 11px; font-weight: 500; color: var(--color-text-primary); }
-  .author-sub { font-size: 9px; color: var(--color-text-secondary); margin-top: 2px; }
+  .author-name { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+  .author-sub { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
   .divider-band { padding: 10px 20px; background: var(--color-background-secondary); border-top: 0.5px solid var(--color-border-tertiary); border-bottom: 0.5px solid var(--color-border-tertiary); }
   .full-list { padding: 16px 20px; border-bottom: 0.5px solid var(--color-border-tertiary); }
   .list-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); align-items: flex-start; }
   .list-item:last-child { border-bottom: none; }
   .list-dot { width: 36px; height: 36px; flex-shrink: 0; background: #d4c9b5; border-radius: 4px; }
-  .list-text { font-size: 10px; color: var(--color-text-primary); line-height: 1.5; }
+  .list-text { font-size: 12px; color: var(--color-text-primary); line-height: 1.5; }
   .cta-block { padding: 20px; text-align: center; background: #f5f0e8; border-bottom: 0.5px solid var(--color-border-tertiary); }
   .cta-title { font-size: 14px; font-weight: 500; color: #3d2e1a; }
-  .cta-sub { font-size: 10px; color: #7a6a50; margin-top: 4px; }
+  .cta-sub { font-size: 12px; color: #7a6a50; margin-top: 4px; }
   .footer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 14px 20px; background: var(--color-background-secondary); }
-  .footer-col { font-size: 9px; color: var(--color-text-secondary); }
-  .footer-title { font-size: 10px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .footer-col { font-size: 12px; color: var(--color-text-secondary); }
+  .footer-title { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
   .footer-copy { padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
-  .footer-copy-text { font-size: 9px; color: var(--color-text-tertiary); }
+  .footer-copy-text { font-size: 12px; color: var(--color-text-tertiary); }
 
   /* 廣告位置高亮 */
   .ad-pos { position: relative; }
   .ad-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 2; border-radius: 4px; }
-  .ad-badge { position: absolute; z-index: 3; font-size: 9px; font-weight: 500; border-radius: 4px; padding: 2px 7px; pointer-events: none; white-space: nowrap; }
+  .ad-badge { position: absolute; z-index: 3; font-size: 12px; font-weight: 500; border-radius: 4px; padding: 2px 7px; pointer-events: none; white-space: nowrap; }
 
   /* 位置一：Footer */
   .pos-footer { background: rgba(83, 74, 183, 0.12); border: 1.5px dashed #534AB7; }
@@ -67,10 +67,10 @@
   .info-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .info-label { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
   .info-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
-  .info-key { font-size: 11px; color: var(--color-text-secondary); }
-  .info-val { font-size: 11px; color: var(--color-text-primary); font-weight: 500; }
-  .info-desc { font-size: 10px; color: var(--color-text-secondary); margin-top: 6px; line-height: 1.5; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 6px; }
-  .recommend-badge { font-size: 9px; background: var(--color-background-success); color: var(--color-text-success); border-radius: 4px; padding: 1px 6px; margin-left: 4px; }
+  .info-key { font-size: 12px; color: var(--color-text-secondary); }
+  .info-val { font-size: 12px; color: var(--color-text-primary); font-weight: 500; }
+  .info-desc { font-size: 12px; color: var(--color-text-secondary); margin-top: 6px; line-height: 1.5; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 6px; }
+  .recommend-badge { font-size: 12px; background: var(--color-background-success); color: var(--color-text-success); border-radius: 4px; padding: 1px 6px; margin-left: 4px; }
 </style>
 
 <div class="site-wrap">
