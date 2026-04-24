@@ -1,0 +1,227 @@
+
+<style>
+  .site-wrap { font-family: var(--font-sans); max-width: 680px; margin: 0 auto; }
+  .site-frame { border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-primary); }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .nav-logo { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .nav-links { display: flex; gap: 14px; }
+  .nav-link { font-size: 10px; color: var(--color-text-secondary); }
+  .hero { background: #f5f0e8; padding: 28px 20px 20px; text-align: center; position: relative; }
+  .hero-title { font-size: 26px; font-weight: 500; color: #3d2e1a; letter-spacing: -0.5px; }
+  .hero-sub { font-size: 10px; color: #7a6a50; margin-top: 6px; }
+  .section { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .left-col { padding: 16px; border-right: 0.5px solid var(--color-border-tertiary); }
+  .right-col { padding: 16px; }
+  .section-title { font-size: 11px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; }
+  .article-card { margin-bottom: 12px; }
+  .article-img { width: 100%; height: 56px; background: #c8d4c0; border-radius: 6px; margin-bottom: 6px; }
+  .article-title { font-size: 10px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; }
+  .article-meta { font-size: 9px; color: var(--color-text-tertiary); margin-top: 3px; }
+  .right-article { display: flex; flex-direction: column; gap: 10px; }
+  .right-item { padding-bottom: 10px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .right-item:last-child { border-bottom: none; }
+  .author-card { background: var(--color-background-secondary); border-radius: 8px; padding: 10px; margin-bottom: 10px; text-align: center; }
+  .author-avatar { width: 32px; height: 32px; border-radius: 50%; background: #c0a882; margin: 0 auto 6px; }
+  .author-name { font-size: 11px; font-weight: 500; color: var(--color-text-primary); }
+  .author-sub { font-size: 9px; color: var(--color-text-secondary); margin-top: 2px; }
+  .divider-band { padding: 10px 20px; background: var(--color-background-secondary); border-top: 0.5px solid var(--color-border-tertiary); border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .full-list { padding: 16px 20px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .list-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); align-items: flex-start; }
+  .list-item:last-child { border-bottom: none; }
+  .list-dot { width: 36px; height: 36px; flex-shrink: 0; background: #d4c9b5; border-radius: 4px; }
+  .list-text { font-size: 10px; color: var(--color-text-primary); line-height: 1.5; }
+  .cta-block { padding: 20px; text-align: center; background: #f5f0e8; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .cta-title { font-size: 14px; font-weight: 500; color: #3d2e1a; }
+  .cta-sub { font-size: 10px; color: #7a6a50; margin-top: 4px; }
+  .footer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 14px 20px; background: var(--color-background-secondary); }
+  .footer-col { font-size: 9px; color: var(--color-text-secondary); }
+  .footer-title { font-size: 10px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .footer-copy { padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
+  .footer-copy-text { font-size: 9px; color: var(--color-text-tertiary); }
+
+  /* 廣告位置高亮 */
+  .ad-pos { position: relative; }
+  .ad-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 2; border-radius: 4px; }
+  .ad-badge { position: absolute; z-index: 3; font-size: 9px; font-weight: 500; border-radius: 4px; padding: 2px 7px; pointer-events: none; white-space: nowrap; }
+
+  /* 位置一：Footer */
+  .pos-footer { background: rgba(83, 74, 183, 0.12); border: 1.5px dashed #534AB7; }
+  .badge-1 { background: #534AB7; color: #EEEDFE; }
+
+  /* 位置二：側欄 */
+  .pos-side { background: rgba(15, 110, 86, 0.12); border: 1.5px dashed #0F6E56; }
+  .badge-2 { background: #0F6E56; color: #E1F5EE; }
+
+  /* 位置三：分隔帶 */
+  .pos-divider { background: rgba(186, 117, 23, 0.15); border: 1.5px dashed #BA7517; }
+  .badge-3 { background: #BA7517; color: #FAEEDA; }
+
+  /* 位置四：CTA 角落 */
+  .pos-cta { background: rgba(216, 90, 48, 0.1); border: 1.5px dashed #D85A30; }
+  .badge-4 { background: #D85A30; color: #FAECE7; }
+
+  /* 說明卡片區 */
+  .info-section { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .info-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px; }
+  .info-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .info-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .info-label { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+  .info-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .info-key { font-size: 11px; color: var(--color-text-secondary); }
+  .info-val { font-size: 11px; color: var(--color-text-primary); font-weight: 500; }
+  .info-desc { font-size: 10px; color: var(--color-text-secondary); margin-top: 6px; line-height: 1.5; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 6px; }
+  .recommend-badge { font-size: 9px; background: var(--color-background-success); color: var(--color-text-success); border-radius: 4px; padding: 1px 6px; margin-left: 4px; }
+</style>
+
+<div class="site-wrap">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin:0 0 10px;">↓ 思語室首頁示意圖（縮略版），四個廣告候選位置已標色</p>
+
+  <div class="site-frame">
+    <!-- NAV -->
+    <div class="nav">
+      <div class="nav-logo">思 語 堂</div>
+      <div class="nav-links">
+        <span class="nav-link">首頁</span>
+        <span class="nav-link">文章列表</span>
+        <span class="nav-link">關於作家</span>
+        <span class="nav-link">常見問題</span>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-title">思，語堂</div>
+      <div class="hero-sub">我們的故事，就在這裡</div>
+    </div>
+
+    <!-- 最新 + 精選 -->
+    <div class="section">
+      <div class="left-col">
+        <div class="section-title">最新文章</div>
+        <div class="article-card">
+          <div class="article-img"></div>
+          <div class="article-title">「USTINI」👟 鞋界隱藏王者！不只好穿...</div>
+          <div class="article-meta">2025/10/28 · 人生的滋味</div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="section-title">精選文章</div>
+        <div class="right-article">
+          <div class="right-item"><div class="article-title">你真歡現在的自己嗎？淺談醫美與自信</div><div class="article-meta">2025/07</div></div>
+          <div class="right-item"><div class="article-title">「李大媽水餃」🥟冰箱的家鄉味...</div><div class="article-meta">2025/10/07</div></div>
+          <div class="right-item"><div class="article-title">讀者投稿｜長篇系列《一場戀愛》</div><div class="article-meta">2025/03/21</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 分隔帶 位置三 -->
+    <div class="ad-pos" style="position:relative;">
+      <div class="divider-band" style="text-align:center;">
+        <span style="font-size:9px;color:var(--color-text-tertiary);">文章列表</span>
+      </div>
+      <div class="ad-overlay pos-divider" style="inset:0;"></div>
+      <span class="ad-badge badge-3" style="top:50%;right:8px;transform:translateY(-50%);">③ 分隔帶 Banner</span>
+    </div>
+
+    <!-- 文章列表 + 側欄 -->
+    <div class="section" style="align-items:start;">
+      <div class="left-col">
+        <div class="list-item"><div class="list-dot"></div><div class="list-text">「USTINI」鞋界隱藏王者...人生的滋味 #作者 #健康</div></div>
+        <div class="list-item"><div class="list-dot"></div><div class="list-text">「台全眼科」SMILE Pro 2.0全紀錄...告別20年眼鏡</div></div>
+        <div class="list-item"><div class="list-dot"></div><div class="list-text">你不一定要一直快樂，也可以好好地活著｜《快樂密碼》</div></div>
+        <div class="list-item"><div class="list-dot"></div><div class="list-text">你不一定要知道，但一定要知道自己為什麼做｜個人品牌</div></div>
+      </div>
+      <div class="right-col">
+        <div class="author-card">
+          <div class="author-avatar"></div>
+          <div class="author-name">林思齊</div>
+          <div class="author-sub">279 位追蹤者</div>
+        </div>
+        <!-- 位置二：側欄作者卡下方 -->
+        <div class="ad-pos" style="position:relative;min-height:52px;">
+          <div style="height:52px;background:var(--color-background-secondary);border-radius:8px;border:0.5px solid var(--color-border-tertiary);"></div>
+          <div class="ad-overlay pos-side" style="inset:0;border-radius:8px;"></div>
+          <span class="ad-badge badge-2" style="top:50%;left:50%;transform:translate(-50%,-50%);">② 側欄廣告區</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA block 位置四 -->
+    <div class="ad-pos" style="position:relative;">
+      <div class="cta-block">
+        <div class="cta-title">以行動支持創作者</div>
+        <div class="cta-sub">升級付費會員即可解鎖超過 150+ 文章！</div>
+      </div>
+      <div class="ad-overlay pos-cta" style="inset:0;"></div>
+      <span class="ad-badge badge-4" style="bottom:8px;right:8px;">④ CTA 角落</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-col"><div class="footer-title">思語堂</div><div>歡迎您分享「私訊」分享您的故事</div></div>
+      <div class="footer-col"><div class="footer-title">聯絡資訊</div><div>社群連結 · Email</div></div>
+      <div class="footer-col"><div class="footer-title">訂閱電子報</div><div>輸入您的電子信箱</div></div>
+    </div>
+
+    <!-- Footer 版權列 位置一 -->
+    <div class="ad-pos" style="position:relative;">
+      <div class="footer-copy">
+        <div class="footer-copy-text">版權宣告 2026. All Rights Reserved. Web Design By creer</div>
+        <div style="font-size:9px;color:var(--color-text-tertiary);">客服信箱 · 週一～五 10:00–18:00</div>
+      </div>
+      <div class="ad-overlay pos-footer" style="inset:0;"></div>
+      <span class="ad-badge badge-1" style="top:50%;left:50%;transform:translate(-50%,-50%);">① Footer 版權欄  ★ 最推薦</span>
+    </div>
+  </div>
+
+  <!-- 說明卡片 -->
+  <div class="info-section">
+    <div class="info-card">
+      <div class="info-header">
+        <div class="info-dot" style="background:#534AB7;"></div>
+        <div class="info-label">① Footer 版權欄 <span class="recommend-badge">最推薦</span></div>
+      </div>
+      <div class="info-row"><span class="info-key">尺寸</span><span class="info-val">全寬 × 28–32px 高</span></div>
+      <div class="info-row"><span class="info-key">元素</span><span class="info-val">Logo + 文字 + 超連結</span></div>
+      <div class="info-row"><span class="info-key">開發成本</span><span class="info-val">極低（改現有文字）</span></div>
+      <div class="info-row"><span class="info-key">主從干擾</span><span class="info-val">幾乎零</span></div>
+      <div class="info-desc">原本就有「Web Design By creer」文字，升級為帶 Logo 的 Badge 即可，RWD 無需額外處理。</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-header">
+        <div class="info-dot" style="background:#0F6E56;"></div>
+        <div class="info-label">② 側欄作者卡下方</div>
+      </div>
+      <div class="info-row"><span class="info-key">尺寸</span><span class="info-val">220px 寬 × 52–60px 高</span></div>
+      <div class="info-row"><span class="info-key">元素</span><span class="info-val">Logo + 一句 slogan</span></div>
+      <div class="info-row"><span class="info-key">開發成本</span><span class="info-val">低（新增 div）</span></div>
+      <div class="info-row"><span class="info-key">主從干擾</span><span class="info-val">低</span></div>
+      <div class="info-desc">作者卡下方留白空間自然，屬於「資訊補充區」，標題可用「網站技術支援」輕化廣告感。</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-header">
+        <div class="info-dot" style="background:#BA7517;"></div>
+        <div class="info-label">③ 分隔帶 Banner</div>
+      </div>
+      <div class="info-row"><span class="info-key">尺寸</span><span class="info-val">全寬 × 60–80px 高</span></div>
+      <div class="info-row"><span class="info-key">元素</span><span class="info-val">Logo 左 + 短文案右</span></div>
+      <div class="info-row"><span class="info-key">開發成本</span><span class="info-val">中（新增 section）</span></div>
+      <div class="info-row"><span class="info-key">主從干擾</span><span class="info-val">中低</span></div>
+      <div class="info-desc">最新文章與文章列表之間的自然斷點，背景色呼應思語室暖米色，視覺上像站內公告帶。</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-header">
+        <div class="info-dot" style="background:#D85A30;"></div>
+        <div class="info-label">④ CTA 區塊角落</div>
+      </div>
+      <div class="info-row"><span class="info-key">尺寸</span><span class="info-val">120px 寬 × 24px 高</span></div>
+      <div class="info-row"><span class="info-key">元素</span><span class="info-val">小 Logo + 極短文字</span></div>
+      <div class="info-row"><span class="info-key">開發成本</span><span class="info-val">低（角落植入）</span></div>
+      <div class="info-row"><span class="info-key">主從干擾</span><span class="info-val">低（需找才看到）</span></div>
+      <div class="info-desc">借用 CTA 區視覺重量，但文字本身非常低調。屬於「品牌識別型」而非「導流型」，適合長期駐留。</div>
+    </div>
+  </div>
+</div>
