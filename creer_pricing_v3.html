@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WP服務定價策略規劃｜筑今數位設計</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg:        #ffffff;
+    --bg2:       #f7f6f3;
+    --surface:   #f2f0eb;
+    --surface2:  #ebe8e1;
+    --border:    rgba(0,0,0,0.08);
+    --border2:   rgba(0,0,0,0.14);
+    --text:      #1a1a1a;
+    --text2:     #4a4a4a;
+    --text3:     #888880;
+    /* 筑今 accent：米金 */
+    --gold:      #9C7A3C;
+    --gold-lt:   #C5A97A;
+    --gold-dim:  rgba(156,122,60,0.09);
+    --gold-brd:  rgba(156,122,60,0.28);
+    /* 冷藍 */
+    --blue:      #2E6DA4;
+    --blue-dim:  rgba(46,109,164,0.08);
+    --blue-brd:  rgba(46,109,164,0.25);
+    /* 警示紅 */
+    --red:       #C0392B;
+    --red-dim:   rgba(192,57,43,0.07);
+    --red-brd:   rgba(192,57,43,0.22);
+    /* 深色（強調文字用）*/
+    --dark:      #1a2332;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ── SLIDE SYSTEM ── */
+  .deck { width: 100%; height: 100vh; position: relative; }
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4vh 6vw 7vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s ease;
+    overflow: hidden;
+  }
+  .slide.active { opacity: 1; pointer-events: all; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    border: 0.5px solid var(--border2);
+    border-radius: 40px;
+    padding: 8px 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+  nav button {
+    background: none; border: none;
+    color: var(--text3); cursor: pointer;
+    font-size: 18px; line-height: 1;
+    padding: 4px 8px; border-radius: 6px;
+    transition: color .2s, background .2s;
+  }
+  nav button:hover { color: var(--text); background: var(--surface); }
+  #slide-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; color: var(--text3);
+    min-width: 52px; text-align: center;
+  }
+  .dot-nav { display: flex; gap: 6px; }
+  .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--border2); cursor: pointer;
+    transition: all .25s;
+  }
+  .dot.on { background: var(--gold); transform: scale(1.5); }
+
+  /* ── SECTION LABEL ── */
+  .stag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .16em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: .9;
+  }
+  .stag::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1.5px;
+    background: var(--gold);
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .display {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 5.2vw, 68px);
+    line-height: 1.08;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+  .display em { font-style: italic; color: var(--gold); }
+
+  h2 {
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+  h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; color: var(--text); }
+  p { font-size: 15px; line-height: 1.85; color: var(--text2); }
+  .lead { font-size: 18px; line-height: 1.75; color: var(--text2); max-width: 680px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .card-gold { border-color: var(--gold-brd); background: var(--gold-dim); }
+  .card-blue { border-color: var(--blue-brd); background: var(--blue-dim); }
+  .card-red  { border-color: var(--red-brd);  background: var(--red-dim);  }
+
+  /* ── GRIDS ── */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr;     gap: 13px; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 13px; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 11px; }
+  .full { width: 100%; }
+  .mw900 { max-width: 900px; }
+  .mw820 { max-width: 820px; }
+
+  /* ── TABLE ROWS ── */
+  .trow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 14px;
+    gap: 12px;
+  }
+  .trow:last-child { border-bottom: none; }
+  .tl  { color: var(--text3); flex-shrink: 0; }
+  .tv  { color: var(--text);  font-weight: 500; text-align: right; }
+  .tv2 { color: var(--text2); font-weight: 400; text-align: right; font-size: 13px; }
+
+  /* ── TAGS ── */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-family: 'Space Mono', monospace;
+    margin: 3px 3px 0 0;
+  }
+  .tg  { background: var(--gold-dim); color: var(--gold); border: 0.5px solid var(--gold-brd); }
+  .tb  { background: var(--blue-dim); color: var(--blue); border: 0.5px solid var(--blue-brd); }
+  .tr  { background: var(--red-dim);  color: var(--red);  border: 0.5px solid var(--red-brd);  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .07em;
+    padding: 3px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .bg { background: var(--gold-dim); color: var(--gold); border: 0.5px solid var(--gold-brd); }
+  .bb { background: var(--blue-dim); color: var(--blue); border: 0.5px solid var(--blue-brd); }
+  .br { background: var(--red-dim);  color: var(--red);  border: 0.5px solid var(--red-brd);  }
+
+  /* ── PRICE ── */
+  .price-lg {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px; color: var(--text); line-height: 1; margin: 6px 0 4px;
+  }
+  .price-num { font-size: 48px; color: var(--gold); line-height: 1; font-family: 'DM Serif Display', serif; }
+
+  /* ── PLAN CARD ── */
+  .pcard {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 18px;
+    display: flex; flex-direction: column;
+  }
+  .pcard.hi-gold { border-color: var(--gold-brd); background: var(--gold-dim); }
+  .pcard.hi-blue { border-color: var(--blue-brd); background: var(--blue-dim); }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+  .fbox {
+    background: var(--surface2); border: 0.5px solid var(--border2);
+    border-radius: 8px; padding: 8px 14px; font-size: 14px; color: var(--text2);
+  }
+  .fbox-good { background: var(--gold-dim); border-color: var(--gold-brd); color: var(--gold); font-weight: 500; }
+  .fbox-bad  { background: var(--red-dim);  border-color: var(--red-brd);  color: var(--red); }
+  .arrow { color: var(--text3); font-size: 17px; }
+
+  /* ── LINK ── */
+  a.ext {
+    color: var(--gold); text-decoration: none;
+    font-size: 12px; font-family: 'Space Mono', monospace;
+    border-bottom: 1px solid var(--gold-brd); padding-bottom: 1px;
+    transition: border-color .2s;
+  }
+  a.ext:hover { border-color: var(--gold); }
+
+  /* ── DIVIDER ── */
+  .hr { border: none; border-top: 0.5px solid var(--border); margin: 12px 0; }
+
+  /* ── COMPETITOR TABLE ── */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: fixed;
+  }
+  .comp-table th {
+    background: var(--dark);
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .comp-table th:last-child { border-right: none; }
+  .comp-table td {
+    padding: 7px 10px;
+    border-bottom: 0.5px solid var(--border);
+    border-right: 0.5px solid var(--border);
+    vertical-align: top;
+    color: var(--text2);
+    line-height: 1.5;
+    font-size: 13px;
+  }
+  .comp-table td:last-child { border-right: none; }
+  .comp-table td:first-child { color: var(--text); font-weight: 500; }
+  .comp-table tr:hover td { background: var(--surface); }
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  /* price band table */
+  .band-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .band-table th {
+    background: var(--dark);
+    color: #fff;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 13px;
+  }
+  .band-table td {
+    padding: 11px 16px;
+    border-bottom: 0.5px solid var(--border);
+    color: var(--text2);
+    line-height: 1.6;
+    vertical-align: middle;
+  }
+  .band-table td:first-child { color: var(--text); font-weight: 500; }
+  .band-table tr:hover td { background: var(--surface); }
+  .band-table tr:last-child td { border-bottom: none; }
+  .band-low  { background: var(--red-dim) !important; }
+  .band-mid  { background: var(--gold-dim) !important; }
+  .band-high { background: var(--blue-dim) !important; }
+
+  /* table scroll wrapper */
+  .tscroll {
+    overflow-x: auto;
+    border: 0.5px solid var(--border2);
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  /* ── ANIMATE IN ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .slide.active > * { animation: fadeUp .45s ease both; }
+  .slide.active > *:nth-child(1) { animation-delay: .04s; }
+  .slide.active > *:nth-child(2) { animation-delay: .12s; }
+  .slide.active > *:nth-child(3) { animation-delay: .20s; }
+  .slide.active > *:nth-child(4) { animation-delay: .27s; }
+  .slide.active > *:nth-child(5) { animation-delay: .33s; }
+
+  .key-hint {
+    position: fixed; top: 20px; right: 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: var(--text3); letter-spacing: .06em;
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- S0: 封面 -->
+  <div class="slide active" id="s0">
+    <div class="stag">筑今數位設計 · 內部規劃 · 2026</div>
+    <div class="display">WP 服務<br>定價策略<br><em>規劃方向</em></div>
+    <p class="lead">非全客製化服務的市場現況分析<br>與筑今的定價策略規劃</p>
+    <div style="margin-top:28px; display:flex; gap:10px; flex-wrap:wrap;">
+      <span class="tag tb">市場競品分析</span>
+      <span class="tag tb">價格帶分布</span>
+      <span class="tag tr">現行定價的問題</span>
+      <span class="tag tg">筑今定價方向</span>
+    </div>
+  </div>
+
+  <!-- S1: 競品總表 (滾動式) -->
+  <div class="slide" id="s1" style="justify-content:flex-start; padding-top:3.5vh; overflow-y:auto;">
+    <div class="stag">01 市場競品分析</div>
+    <h2 style="margin-bottom:12px;">台灣 WP／非全客製市場　前10家競品方案與定價</h2>
+    <div class="tscroll full">
+      <table class="comp-table">
+        <colgroup>
+          <col style="width:4%">
+          <col style="width:9%">
+          <col style="width:8%">
+          <col style="width:11%">
+          <col style="width:9%">
+          <col style="width:8%">
+          <col style="width:10%">
+          <col style="width:7%">
+          <col style="width:9%">
+          <col style="width:13%">
+          <col style="width:12%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>公司名稱</th>
+            <th>市場定位</th>
+            <th>形象官網 / WP半客製</th>
+            <th>電商方案</th>
+            <th>一頁式</th>
+            <th>次年維護費</th>
+            <th>工期</th>
+            <th>定價方式</th>
+            <th>設計差異化</th>
+            <th>官網連結</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>貴設計</strong></td>
+            <td>低價透明帶</td>
+            <td>$4.98–5.28萬（含首年主機+網域）</td>
+            <td>$7.5–10萬</td>
+            <td>未標示</td>
+            <td>主機+網域 $6,000–8,000/年</td>
+            <td>未標示</td>
+            <td>一口價固定</td>
+            <td>幾乎無，靠 SEO 長尾導流</td>
+            <td><a href="https://web-design.vip" target="_blank" class="ext">web-design.vip ↗</a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>GOT YOU DESIGN</strong></td>
+            <td>低價快速帶</td>
+            <td>$1.5–3萬起</td>
+            <td>$3–8萬（含金流）</td>
+            <td>$1.5萬起</td>
+            <td>另計月費</td>
+            <td>5–14 天</td>
+            <td>模組彈性報價</td>
+            <td>主打「最便宜」、不強調設計質感</td>
+            <td><a href="https://hostswp.com" target="_blank" class="ext">hostswp.com ↗</a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>WPW Design</strong></td>
+            <td>中低價全功能</td>
+            <td>$3–8萬（估算）</td>
+            <td>$6–12萬</td>
+            <td>未標示</td>
+            <td>另計年費</td>
+            <td>未標示</td>
+            <td>線上估價工具</td>
+            <td>作品集量大、服務項目全面</td>
+            <td><a href="https://wpw.design" target="_blank" class="ext">wpw.design ↗</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>鵠崙設計</strong></td>
+            <td>中價 WP 專攻</td>
+            <td>詢價制（估 $5–12萬）</td>
+            <td>有，詢價制</td>
+            <td>有，詢價制</td>
+            <td>透明公開，另計</td>
+            <td>未標示</td>
+            <td>四方案透明公開</td>
+            <td>WP 技術教學豐富、設計細緻</td>
+            <td><a href="https://www.design-hu.com" target="_blank" class="ext">design-hu.com ↗</a></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>藝誠網頁設計</strong></td>
+            <td>中低價買斷制</td>
+            <td>EZWeb 智慧套版（估 $3–8萬）</td>
+            <td>有，另計</td>
+            <td>有</td>
+            <td>主機 $6,000/年（不另收維護費）</td>
+            <td>未標示</td>
+            <td>買斷型、無抽成</td>
+            <td>20年資歷、政府標案、ISO 27001</td>
+            <td><a href="https://www.eztrust.com.tw" target="_blank" class="ext">eztrust.com.tw ↗</a></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>EG 艾格設計</strong></td>
+            <td>中高價設計整合</td>
+            <td>$15–35萬</td>
+            <td>$30–45萬</td>
+            <td>$8–15萬</td>
+            <td>依需求報價</td>
+            <td>未標示</td>
+            <td>詢價制（依工時）</td>
+            <td>SEO 整合、服務上市公司客群</td>
+            <td><a href="https://www.eg-creative.com" target="_blank" class="ext">eg-creative.com ↗</a></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>愛貝斯 iBest</strong></td>
+            <td>中高價品牌設計</td>
+            <td>風格客製 $13萬起</td>
+            <td>詢價</td>
+            <td>詢價</td>
+            <td>另計，有維運合約</td>
+            <td>未標示</td>
+            <td>兩方案（風格客製／頂級客製）</td>
+            <td>頂級客製 $30萬以上、AI 設計整合、1,500+ 案例</td>
+            <td><a href="https://www.ibest.tw" target="_blank" class="ext">ibest.tw ↗</a></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><strong>戰國策</strong></td>
+            <td>老牌大量案例</td>
+            <td>詢價制（估 $5–15萬）</td>
+            <td>有，詢價</td>
+            <td>有</td>
+            <td>終身保固、含代管</td>
+            <td>未標示</td>
+            <td>詢價制、24年老牌</td>
+            <td>3萬+ 客戶、終身保固、免費架構規劃</td>
+            <td><a href="https://www.nss.com.tw" target="_blank" class="ext">nss.com.tw ↗</a></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><strong>夏木樂 Simular</strong></td>
+            <td>高端全客製</td>
+            <td>數十萬起（無套餐）</td>
+            <td>含系統整合，百萬以上</td>
+            <td>詢價</td>
+            <td>依合約</td>
+            <td>未標示</td>
+            <td>詢價制</td>
+            <td>40年老牌（百岳國際）、大型企業/政府標案</td>
+            <td><a href="https://simular.co" target="_blank" class="ext">simular.co ↗</a></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td><strong>海棠設計 Begonia</strong></td>
+            <td>高端全客製</td>
+            <td>數十萬起（無公開報價）</td>
+            <td>詢價</td>
+            <td>詢價</td>
+            <td>依合約</td>
+            <td>未標示</td>
+            <td>詢價制</td>
+            <td>大量動態特效、品牌策略顧問、中大型企業</td>
+            <td><a href="https://begonia.design" target="_blank" class="ext">begonia.design ↗</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px; color:var(--text3); margin-top:8px;">資料截至 2026 年 4 月 · 部分無公開標價者以估算區間標示 · 實際報價以各家官網或詢問為準</p>
+  </div>
+
+  <!-- S2: 三個價格帶 -->
+  <div class="slide" id="s2">
+    <div class="stag">01 市場競品分析</div>
+    <h2 style="margin-bottom:14px;">市場三個價格帶分布</h2>
+    <div class="tscroll full mw900" style="margin-bottom:16px;">
+      <table class="band-table">
+        <thead>
+          <tr>
+            <th>價格帶</th>
+            <th>代表業者</th>
+            <th>形象站估算區間</th>
+            <th>共同特徵</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="band-low" style="color:var(--red); font-weight:600;">低價帶</td>
+            <td>貴設計、GOT YOU DESIGN</td>
+            <td>$1.5–6 萬</td>
+            <td>一口價透明、工期快（5–14天）、設計同質化高，靠搜尋量導流</td>
+          </tr>
+          <tr>
+            <td class="band-mid" style="color:var(--gold); font-weight:600;">中價帶</td>
+            <td>WPW、鵠崙、藝誠、EG 艾格</td>
+            <td>$5–35 萬</td>
+            <td>品質差異大、部分透明報價、SEO整合程度不一，競爭最激烈的區間</td>
+          </tr>
+          <tr>
+            <td class="band-high" style="color:var(--blue); font-weight:600;">高價帶</td>
+            <td>愛貝斯、戰國策、夏木樂、海棠</td>
+            <td>$13 萬以上，多為詢價</td>
+            <td>全客製或品牌整合、大型企業導向、報價不透明、服務週期長</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="padding:16px 20px; background:var(--surface); border-radius:10px; border:0.5px solid var(--border2); max-width:820px;">
+      <p style="font-size:15px; color:var(--text2); line-height:1.75;">
+        觀察到的市場缺口：<span style="color:var(--text); font-weight:500;">中價帶（$8–20萬）幾乎沒有競品同時做到「套餐明確 ＋ 工期承諾 ＋ 維護透明」三件事。</span><br>
+        <span style="font-size:14px;">這是筑今最直接可以切入的空白地帶。</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- S3: 為什麼要討論這件事 -->
+  <div class="slide" id="s3">
+    <div class="stag">背景</div>
+    <h2>服務定價策略現況與方向</h2>
+    <div class="g3 full mw900" style="margin-top:12px;">
+      <div class="card card-blue">
+        <div class="badge bb">策略背景</div>
+        <h3 style="font-size:16px;">雙軌模型的新軌道</h3>
+        <p style="font-size:15px; line-height:1.75;">WP 半客製是年度策略計畫中的新增收入軌道，月目標貢獻 30 萬，需要清楚的定價結構支撐。</p>
+      </div>
+      <div class="card card-red">
+        <div class="badge br">當前問題</div>
+        <h3 style="font-size:16px;">「半客製」是生產語言</h3>
+        <p style="font-size:15px; line-height:1.75;">客戶聽到「半客製」第一個問的是：那全客製差在哪？這讓我們在報價前就陷入被動解釋。</p>
+      </div>
+      <div class="card card-gold">
+        <div class="badge bg">規劃方向</div>
+        <h3 style="font-size:16px;">重新定義</h3>
+        <p style="font-size:15px; line-height:1.75;">市場怎麼定價、我們的問題在哪裡、筑今可以怎麼重新定義這個服務的定價方式。</p>
+      </div>
+    </div>
+    <div style="margin-top:18px; padding:16px 22px; background:var(--surface); border-radius:10px; border:0.5px solid var(--border2); max-width:820px;">
+      <p style="font-size:16px; line-height:1.75; color:var(--text2);">核心問題意識：<span style="color:var(--text); font-weight:500;">客戶從來不是在買「半客製」，他們是在買「一個能幫我解決問題的網站」。</span></p>
+    </div>
+  </div>
+
+  <!-- S4: 競品共同服務與缺口 -->
+  <div class="slide" id="s4">
+    <div class="stag">02 現行定價的問題</div>
+    <h2>競品普遍給什麼？共同缺口在哪？</h2>
+    <div class="g2 full mw820" style="margin-top:14px;">
+      <div>
+        <div class="card" style="margin-bottom:13px;">
+          <h3 style="color:var(--gold); font-size:15px; margin-bottom:13px;">市場標配（幾乎所有競品都給）</h3>
+          <div class="trow"><span class="tl">✓</span><span class="tv2" style="text-align:left;">RWD 響應式設計</span></div>
+          <div class="trow"><span class="tl">✓</span><span class="tv2" style="text-align:left;">CMS 後台（可自行更新）</span></div>
+          <div class="trow"><span class="tl">✓</span><span class="tv2" style="text-align:left;">SEO 基礎設定（Meta、Sitemap）</span></div>
+          <div class="trow"><span class="tl">✓</span><span class="tv2" style="text-align:left;">主機代管（部分含年費）</span></div>
+          <div class="trow"><span class="tl">✓</span><span class="tv2" style="text-align:left;">聯絡表單 ＋ SSL 憑證</span></div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:13px;">
+        <div class="card card-red">
+          <h3 style="color:var(--red); font-size:15px; margin-bottom:13px;">普遍沒說清楚的地方（競爭缺口）</h3>
+          <div class="trow"><span class="tl">？</span><span class="tv2" style="text-align:left;">維護費包什麼、怎麼收費</span></div>
+          <div class="trow"><span class="tl">？</span><span class="tv2" style="text-align:left;">修改次數上限</span></div>
+          <div class="trow"><span class="tl">？</span><span class="tv2" style="text-align:left;">明確的工期承諾</span></div>
+          <div class="trow"><span class="tl">？</span><span class="tv2" style="text-align:left;">產業實戰經驗與案例</span></div>
+        </div>
+        <div class="card card-gold">
+          <p style="font-size:15px; color:var(--gold); font-weight:500; line-height:1.7;">這四個灰色地帶，是目前市場上最明顯的競爭缺口。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S5: 定價痛點 -->
+  <div class="slide" id="s5">
+    <div class="stag">02 現行定價的問題</div>
+    <h2>用技術規格報價，會碰到的問題</h2>
+    <div class="g2 full mw820" style="margin-top:16px;">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="card">
+          <h3 style="font-size:15px; color:var(--text2); margin-bottom:8px;">客戶聽到「半客製」的第一反應</h3>
+          <p style="font-size:15px; line-height:1.75;">「那全客製是什麼？差在哪？我是不是買到縮水版？」——報價還沒談就先陷入解釋。</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px; color:var(--text2); margin-bottom:8px;">沒有產業經驗，客戶要自己解釋</h3>
+          <p style="font-size:15px; line-height:1.75;">客戶要花大量時間說明自己的行業需求，信任感低，成交週期拉長。</p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="card card-red">
+          <h3 style="font-size:15px; color:var(--red); margin-bottom:12px;">對筑今的實質影響</h3>
+          <div class="trow" style="font-size:14px;"><span class="tl">比價陷阱</span><span class="tv2">用規格報價，客戶直接在各家之間比較</span></div>
+          <div class="trow" style="font-size:14px;"><span class="tl">業務成本高</span><span class="tv2">沒有標準方案，每案從頭談，難規模化</span></div>
+          <div class="trow" style="font-size:14px;"><span class="tl">毛利偏低</span><span class="tv2">賣的是製作時間，而不是解決問題的能力</span></div>
+        </div>
+        <div style="padding:20px 22px; border:0.5px solid var(--border2); border-radius:10px; background:var(--surface);">
+          <p style="font-size:19px; font-family:'DM Serif Display',serif; color:var(--text); line-height:1.45;">"不是我們不夠好，<br>是客戶沒辦法<br>看出我們哪裡好。"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S6: 框架轉換 -->
+  <div class="slide" id="s6">
+    <div class="stag">03 筑今定價方向</div>
+    <h2>換一個定義框架：從技術語言到產業語言</h2>
+    <div class="full mw820" style="margin-top:20px;">
+      <div style="margin-bottom:20px;">
+        <p style="font-size:13px; color:var(--text3); font-family:'Space Mono',monospace; margin-bottom:12px; letter-spacing:.06em;">現在的方式</p>
+        <div class="flow">
+          <div class="fbox">客戶：我要做室內設計官網</div>
+          <span class="arrow">→</span>
+          <div class="fbox-bad">WP 半客製方案 $12萬</div>
+          <span class="arrow">→</span>
+          <div class="fbox">那全客製是什麼？差在哪？</div>
+        </div>
+      </div>
+      <div style="margin-bottom:24px;">
+        <p style="font-size:13px; color:var(--text3); font-family:'Space Mono',monospace; margin-bottom:12px; letter-spacing:.06em;">規劃中的方式</p>
+        <div class="flow">
+          <div class="fbox">客戶：我要做室內設計官網</div>
+          <span class="arrow">→</span>
+          <div class="fbox-good">室內設計品牌官網方案 $12萬</div>
+          <span class="arrow">→</span>
+          <div class="fbox">我的需求有沒有被解決？</div>
+        </div>
+      </div>
+      <div class="card card-gold">
+        <p style="font-size:16px; font-weight:500; color:var(--gold); line-height:1.75;">
+          「半客製」是我們的<span style="text-decoration:underline;">生產工具</span>，不是客戶的<span style="text-decoration:underline;">購買理由</span>。<br>
+          <span style="font-weight:300; color:var(--gold-lt); font-size:15px;">用產業命名方案，讓客戶在第一秒看到自己的需求，而不是我們的技術規格。</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- S7: 筑今的產業積累 -->
+  <div class="slide" id="s7">
+    <div class="stag">03 筑今定價方向</div>
+    <h2>我們已經累積的產業縱深</h2>
+    <div class="g4 full" style="max-width:980px; margin-top:14px;">
+      <div class="pcard hi-gold">
+        <div class="badge bg">優先推進</div>
+        <h3 style="font-size:16px;">室內設計 / 空間設計</h3>
+        <div class="price-num">8+</div>
+        <p style="font-size:13px; color:var(--text2); margin:6px 0 12px; line-height:1.6;">尚藝、文域、寬象、寬堂、伯明翰、約拿元投、大砌誠石、森白舍⋯</p>
+        <hr class="hr">
+        <span class="tag tg">案例最多</span>
+        <span class="tag tg">同業轉介紹率高</span>
+      </div>
+      <div class="pcard hi-gold">
+        <div class="badge bg">優先推進</div>
+        <h3 style="font-size:16px;">建設 / 建築業</h3>
+        <div class="price-num">3+</div>
+        <p style="font-size:13px; color:var(--text2); margin:6px 0 12px; line-height:1.6;">達永建設（含電子看板）、皇長建設、展宜建築</p>
+        <hr class="hr">
+        <span class="tag tg">客單價高</span>
+        <span class="tag tb">電子看板獨有組合</span>
+      </div>
+      <div class="pcard hi-gold">
+        <div class="badge bg">優先推進</div>
+        <h3 style="font-size:16px;">汽機車業</h3>
+        <div class="price-num">2+</div>
+        <p style="font-size:13px; color:var(--text2); margin:6px 0 12px; line-height:1.6;">明龍汽車、映象車業，並有 SEO 維護中案件</p>
+        <hr class="hr">
+        <span class="tag tg">SEO 實戰經驗</span>
+        <span class="tag tg">市場需求大</span>
+      </div>
+      <div class="pcard">
+        <div class="badge bb">次優先</div>
+        <h3 style="font-size:16px;">教育 / 線上學習</h3>
+        <div class="price-num" style="color:var(--blue);">3+</div>
+        <p style="font-size:13px; color:var(--text2); margin:6px 0 12px; line-height:1.6;">全國律師學院、三貝德、台中律師學院</p>
+        <hr class="hr">
+        <span class="tag tb">報名轉換需求明確</span>
+      </div>
+    </div>
+    <div style="margin-top:14px; padding:14px 20px; background:var(--surface); border-radius:8px; border:0.5px solid var(--border2); max-width:980px;">
+      <p style="font-size:15px; color:var(--text2);">這些案例代表我們已經知道各產業的網站需要什麼，這是<span style="color:var(--text); font-weight:500;">競品花不到錢買的積累</span>，也是以產業命名方案的底氣所在。</p>
+    </div>
+  </div>
+
+  <!-- S8: 三大產業方案 -->
+  <div class="slide" id="s8">
+    <div class="stag">03 筑今定價方向</div>
+    <h2>三個優先產業的方案規劃</h2>
+    <div class="g3 full" style="max-width:980px; margin-top:12px;">
+      <div class="pcard hi-gold">
+        <div class="badge bg">室內設計</div>
+        <p style="font-size:14px; color:var(--text2);">品牌官網方案</p>
+        <p class="price-lg">$10–15 萬</p>
+        <p style="font-size:13px; color:var(--text3); margin-bottom:12px;">工期 4 週</p>
+        <hr class="hr">
+        <div class="trow" style="font-size:14px;"><span class="tl">解決痛點</span><span class="tv2">作品集呈現差、無法自行更新</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">頁面組成</span><span class="tv2">首頁＋品牌故事＋作品集分類＋詢價表單</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">特色</span><span class="tv2">CMS 後台可自行更新作品</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">次年維護</span><span class="tv2">$8,000/年（主機＋安全更新）</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">修改次數</span><span class="tv2">2 輪</span></div>
+      </div>
+      <div class="pcard hi-blue">
+        <div class="badge bb">建設業</div>
+        <p style="font-size:14px; color:var(--text2);">品牌形象官網方案</p>
+        <p class="price-lg">$15–25 萬</p>
+        <p style="font-size:13px; color:var(--text3); margin-bottom:12px;">工期 4–6 週</p>
+        <hr class="hr">
+        <div class="trow" style="font-size:14px;"><span class="tl">解決痛點</span><span class="tv2">形象不夠高端、缺乏數位展示工具</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">頁面組成</span><span class="tv2">首頁＋建案介紹＋公司沿革＋聯絡頁</span></div>
+        <div class="trow" style="font-size:14px; color:var(--blue);"><span class="tl">獨有優勢</span><span style="color:var(--blue); font-weight:500; font-size:13px; text-align:right;">可加購電子看板系統</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">加購選項</span><span class="tv2">ESG 網站、多語系</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">次年維護</span><span class="tv2">$10,000/年</span></div>
+      </div>
+      <div class="pcard hi-gold">
+        <div class="badge bg">汽機車業</div>
+        <p style="font-size:14px; color:var(--text2);">中古車商官網方案</p>
+        <p class="price-lg">$10–15 萬</p>
+        <p style="font-size:13px; color:var(--text3); margin-bottom:12px;">工期 4 週</p>
+        <hr class="hr">
+        <div class="trow" style="font-size:14px;"><span class="tl">解決痛點</span><span class="tv2">用 FB 當官網、庫存無法即時更新</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">頁面組成</span><span class="tv2">首頁＋車款分類＋單車介紹＋預約表單</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">特色</span><span class="tv2">含庫存後台，可自行更新車況</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">次年維護</span><span class="tv2">$8,000/年</span></div>
+        <div class="trow" style="font-size:14px;"><span class="tl">加值選項</span><span style="color:var(--gold); font-weight:500; font-size:13px; text-align:right;">可搭售 SEO 月維護方案</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S9: 總結 -->
+  <div class="slide" id="s9">
+    <div class="stag">定價策略小結</div>
+    <h2>定價方向的核心邏輯</h2>
+    <div class="full mw820" style="margin-top:16px;">
+      <div style="padding:26px 30px; border:0.5px solid var(--border2); border-radius:12px; background:var(--surface); margin-bottom:18px;">
+        <p style="font-family:'DM Serif Display',serif; font-size:clamp(20px,2.4vw,28px); line-height:1.5; color:var(--text);">
+          不和低價帶比，<br>
+          而是往中高帶，搶<em style="color:var(--gold);">說不清楚服務內容</em>的競品客戶。
+        </p>
+      </div>
+      <div class="g2" style="gap:13px;">
+        <div class="card">
+          <div class="trow" style="font-size:15px;"><span class="tl">客戶最大痛點</span><span class="tv">不知道自己付了什麼錢</span></div>
+          <div class="trow" style="font-size:15px;"><span class="tl">競品最大弱點</span><span class="tv">詢價制、服務不透明、維護模糊</span></div>
+          <div class="trow" style="font-size:15px;"><span class="tl">筑今的切入方式</span><span class="tv">產業命名 ＋ 交付明確 ＋ 維護制度化</span></div>
+        </div>
+        <div class="card card-gold">
+          <div class="trow" style="font-size:15px;"><span class="tl">優先推進產業</span><span class="tv">室內設計、建設業、汽機車</span></div>
+          <div class="trow" style="font-size:15px;"><span class="tl">定價區間</span><span class="tv">$10–25 萬（視產業方案）</span></div>
+          <div class="trow" style="font-size:15px;"><span class="tl">建設業獨有</span><span class="tv" style="color:var(--blue);">官網 + 電子看板組合</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav>
+  <button onclick="go(-1)">&#8592;</button>
+  <div class="dot-nav" id="dots"></div>
+  <span id="slide-counter">1 / 10</span>
+  <button onclick="go(1)">&#8594;</button>
+</nav>
+
+<div class="key-hint">← → 鍵盤切換</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  const counter = document.getElementById('slide-counter');
+  let cur = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.onclick = () => go(i - cur);
+    dotsEl.appendChild(d);
+  });
+
+  function go(delta) {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('on');
+    cur = Math.max(0, Math.min(slides.length - 1, cur + delta));
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('on');
+    counter.textContent = (cur + 1) + ' / ' + slides.length;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(-1);
+  });
+</script>
+</body>
+</html>
