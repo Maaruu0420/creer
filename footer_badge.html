@@ -1,0 +1,217 @@
+
+<style>
+  * { box-sizing: border-box; }
+  .site { font-family: var(--font-sans); border-radius: var(--border-radius-lg); overflow: hidden; border: 0.5px solid var(--color-border-secondary); }
+  .cta { background: #faf6ee; padding: 40px 60px; display: flex; align-items: center; gap: 40px; }
+  .cta-illus { width: 120px; height: 110px; flex-shrink: 0; background: #e8d9b8; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .cta-title { font-size: 22px; font-weight: 500; color: #3d2e1a; margin: 0 0 6px; }
+  .cta-sub { font-size: 13px; color: #7a6a50; margin: 0 0 16px; }
+  .cta-btn { display: inline-flex; align-items: center; gap: 6px; background: #8B6914; color: #fff; font-size: 13px; padding: 9px 20px; border-radius: 6px; border: none; }
+  .footer-top { background: #fff; display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 0.5px solid #e8e2d8; }
+  .footer-col { padding: 28px 32px; border-right: 0.5px solid #e8e2d8; }
+  .footer-col:last-child { border-right: none; }
+  .footer-col-title { font-size: 13px; font-weight: 500; color: #3d2e1a; margin-bottom: 6px; }
+  .footer-col-sub { font-size: 11px; color: #9a8a72; line-height: 1.6; }
+  .footer-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; background: #3d2e1a; color: #fff; font-size: 11px; padding: 7px 14px; border-radius: 5px; border: none; }
+  .social-row { display: flex; gap: 14px; margin-top: 12px; }
+  .social-icon { width: 24px; height: 24px; border-radius: 50%; background: #e8e2d8; }
+  .subscribe-row { display: flex; gap: 6px; margin-top: 12px; }
+  .subscribe-input { flex: 1; border: 0.5px solid #d4c8b0; border-radius: 5px; padding: 6px 10px; font-size: 11px; color: #3d2e1a; background: #faf6ee; }
+  .subscribe-btn { background: #8B6914; color: #fff; font-size: 11px; padding: 6px 12px; border-radius: 5px; border: none; white-space: nowrap; }
+
+  .section-tag-bar { background: #111110; padding: 5px 24px; border-top: 1px solid #2a2a28; }
+  .section-tag { font-size: 9px; color: #5F5E5A; letter-spacing: 0.08em; }
+
+  .footer-black { background: #1a1a18; padding: 11px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+  .left-text { font-size: 10px; color: #888780; display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
+  .foot-link { font-size: 10px; color: #888780; text-decoration: none; margin-left: 10px; white-space: nowrap; }
+  .right-text { font-size: 10px; color: #888780; white-space: nowrap; }
+
+  /* Badge C */
+  .badge-c { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; margin-left: 12px; }
+  .badge-c-bar { width: 1px; height: 24px; background: #444441; flex-shrink: 0; }
+  .badge-c-stack { display: flex; flex-direction: column; gap: 2px; }
+  .badge-c-tag { font-size: 7.5px; color: #5F5E5A; letter-spacing: 0.06em; line-height: 1; }
+  .badge-c-en { font-size: 10.5px; font-weight: 500; letter-spacing: 0.09em; line-height: 1; }
+  .badge-c-zh { font-size: 8px; line-height: 1; }
+
+  /* Badge A */
+  .badge-a { display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px 4px 7px; border-radius: 20px; border: 0.5px solid #3a3a38; text-decoration: none; margin-left: 10px; }
+  .badge-a-accent { width: 3px; height: 22px; border-radius: 2px; background: #c29a79; flex-shrink: 0; }
+  .badge-a-stack { display: flex; flex-direction: column; gap: 2px; }
+  .badge-a-tag { font-size: 7.5px; color: #5F5E5A; letter-spacing: 0.06em; line-height: 1; }
+  .badge-a-en { font-size: 10.5px; font-weight: 500; letter-spacing: 0.09em; line-height: 1; }
+  .badge-a-zh { font-size: 8px; line-height: 1; }
+
+  /* 放大區 */
+  .zoom-wrap { background: #111110; padding: 24px 32px 28px; border-top: 1px solid #2a2a28; }
+  .zoom-label { font-size: 9px; color: #5F5E5A; letter-spacing: 0.08em; margin-bottom: 20px; }
+  .zoom-row { display: flex; gap: 80px; align-items: flex-start; flex-wrap: wrap; }
+  .zoom-item { display: flex; flex-direction: column; gap: 10px; }
+  .zoom-item-label { font-size: 9px; color: #5F5E5A; letter-spacing: 0.06em; }
+  .zoom-scale { transform: scale(2); transform-origin: left top; }
+</style>
+
+<div style="padding: 0.5rem 0 1rem;">
+<div class="site">
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-illus">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="38" r="14" fill="#c9a96e" opacity="0.5"/>
+        <rect x="22" y="10" width="16" height="22" rx="3" fill="#8B6914" opacity="0.6"/>
+        <circle cx="38" cy="16" r="5" fill="#c9a96e" opacity="0.7"/>
+      </svg>
+    </div>
+    <div style="flex:1">
+      <div class="cta-title">以行動支持創作者</div>
+      <div class="cta-sub">升級付費會員即可解鎖超過 150+ 文章！</div>
+      <button class="cta-btn">★ 升級會員</button>
+    </div>
+  </div>
+
+  <!-- Footer top -->
+  <div class="footer-top">
+    <div class="footer-col">
+      <div class="footer-col-title">我們一起說故事給，世界聽</div>
+      <div class="footer-col-sub">歡迎點擊下方連結「私訊」分享您的故事</div>
+      <button class="footer-btn">故事投稿</button>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">聯絡資訊</div>
+      <div class="social-row">
+        <div class="social-icon"></div><div class="social-icon"></div>
+        <div class="social-icon"></div><div class="social-icon"></div>
+        <div class="social-icon"></div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">訂閱電子報，解鎖專屬內容</div>
+      <div class="footer-col-sub">我們的故事就在這裡，等著照亮你</div>
+      <div class="subscribe-row">
+        <input class="subscribe-input" placeholder="輸入你的電子信箱">
+        <button class="subscribe-btn">訂閱</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- C款 -->
+  <div class="section-tag-bar"><span class="section-tag">C 款 — 豎線型（灰白文字）</span></div>
+  <div class="footer-black">
+    <div class="left-text">
+      <span>© 思語室 2026. All Rights Reserved. Web Design By créer.</span>
+      <a href="https://creer-design.com" class="badge-c">
+        <div class="badge-c-bar"></div>
+        <div class="badge-c-stack">
+          <span class="badge-c-tag">DESIGNED &amp; BUILT BY</span>
+          <span class="badge-c-en" style="color:#D3D1C7;">CRÉER DESIGN</span>
+          <span class="badge-c-zh" style="color:#888780;">筑今數位設計</span>
+        </div>
+      </a>
+      <a class="foot-link" href="#">服務條款</a>
+      <a class="foot-link" href="#">隱私權政策</a>
+      <a class="foot-link" href="#">付款與退款政策</a>
+      <a class="foot-link" href="#">投稿須知與免責聲明</a>
+    </div>
+    <div class="right-text">客服信箱：pppas05@stvchi.tw　客服電話：0905515455　客服時間：周一至周五 10:00–18:00　地址：高雄市左營區縣六路256號3F-3</div>
+  </div>
+
+  <!-- A款 品牌色裝飾線 -->
+  <div class="section-tag-bar"><span class="section-tag">A 款 — Pill，品牌色 #c29a79 於裝飾線</span></div>
+  <div class="footer-black">
+    <div class="left-text">
+      <span>© 思語室 2026. All Rights Reserved. Web Design By créer.</span>
+      <a href="https://creer-design.com" class="badge-a">
+        <div class="badge-a-accent"></div>
+        <div class="badge-a-stack">
+          <span class="badge-a-tag">DESIGNED &amp; BUILT BY</span>
+          <span class="badge-a-en" style="color:#D3D1C7;">CRÉER DESIGN</span>
+          <span class="badge-a-zh" style="color:#c29a79;">筑今數位設計</span>
+        </div>
+      </a>
+      <a class="foot-link" href="#">服務條款</a>
+      <a class="foot-link" href="#">隱私權政策</a>
+      <a class="foot-link" href="#">投稿須知與免責聲明</a>
+    </div>
+    <div class="right-text">客服信箱：pppas05@stvchi.tw　客服電話：0905515455　客服時間：周一至周五 10:00–18:00　地址：高雄市左營區縣六路256號3F-3</div>
+  </div>
+
+  <!-- A款 全品牌色 -->
+  <div class="section-tag-bar"><span class="section-tag">A 款 — Pill，CRÉER DESIGN 也改為 #c29a79</span></div>
+  <div class="footer-black">
+    <div class="left-text">
+      <span>© 思語室 2026. All Rights Reserved. Web Design By créer.</span>
+      <a href="https://creer-design.com" class="badge-a">
+        <div class="badge-a-accent"></div>
+        <div class="badge-a-stack">
+          <span class="badge-a-tag">DESIGNED &amp; BUILT BY</span>
+          <span class="badge-a-en" style="color:#c29a79;">CRÉER DESIGN</span>
+          <span class="badge-a-zh" style="color:#a07e60;">筑今數位設計</span>
+        </div>
+      </a>
+      <a class="foot-link" href="#">服務條款</a>
+      <a class="foot-link" href="#">隱私權政策</a>
+      <a class="foot-link" href="#">投稿須知與免責聲明</a>
+    </div>
+    <div class="right-text">客服信箱：pppas05@stvchi.tw　客服電話：0905515455　客服時間：周一至周五 10:00–18:00　地址：高雄市左營區縣六路256號3F-3</div>
+  </div>
+
+  <!-- 放大對照 -->
+  <div class="zoom-wrap">
+    <div class="zoom-label">↑ 三款放大對照 × 2</div>
+    <div class="zoom-row">
+
+      <div class="zoom-item">
+        <div class="zoom-item-label">C 款 灰白</div>
+        <div style="height: 52px;">
+          <div class="zoom-scale">
+            <a href="https://creer-design.com" class="badge-c" style="margin-left:0;">
+              <div class="badge-c-bar"></div>
+              <div class="badge-c-stack">
+                <span class="badge-c-tag">DESIGNED &amp; BUILT BY</span>
+                <span class="badge-c-en" style="color:#D3D1C7;">CRÉER DESIGN</span>
+                <span class="badge-c-zh" style="color:#888780;">筑今數位設計</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="zoom-item" style="margin-left:30;">
+        <div class="zoom-item-label">A 款 品牌色裝飾線</div>
+        <div style="height: 52px;">
+          <div class="zoom-scale">
+            <a href="https://creer-design.com" class="badge-a">
+              <div class="badge-a-accent"></div>
+              <div class="badge-a-stack">
+                <span class="badge-a-tag">DESIGNED &amp; BUILT BY</span>
+                <span class="badge-a-en" style="color:#D3D1C7;">CRÉER DESIGN</span>
+                <span class="badge-a-zh" style="color:#c29a79;">筑今數位設計</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="zoom-item" style="margin-left:60;">
+        <div class="zoom-item-label">A 款 全品牌色</div>
+        <div style="height: 52px;">
+          <div class="zoom-scale">
+            <a href="https://creer-design.com" class="badge-a">
+              <div class="badge-a-accent"></div>
+              <div class="badge-a-stack">
+                <span class="badge-a-tag">DESIGNED &amp; BUILT BY</span>
+                <span class="badge-a-en" style="color:#c29a79;">CRÉER DESIGN</span>
+                <span class="badge-a-zh" style="color:#a07e60;">筑今數位設計</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
