@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Echorise 2.0 LP 文案 Mockup — 版本A（推薦）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#16a34a; --green-d:#15803d; --green-l:#dcfce7; --green-bg:#f0fdf4;
+    --ink:#1f2937; --ink-soft:#4b5563; --ink-mute:#6b7280;
+    --line:#e5e7eb; --bg:#ffffff; --bg-soft:#f9fafb;
+    --amber:#f59e0b; --blue:#3b82f6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Sans TC",sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .green{color:var(--green)}
+
+  /* mockup annotation ribbon */
+  .ribbon{background:#111827;color:#fff;font-size:13px;text-align:center;padding:8px 16px;letter-spacing:.3px}
+  .ribbon b{color:#86efac}
+  .ribbon .tag{background:#16a34a;color:#fff;border-radius:4px;padding:1px 8px;font-weight:700;margin-right:8px}
+
+  /* nav */
+  nav{border-bottom:1px solid var(--line);background:#fff}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:8px;font-weight:900;font-size:20px;color:var(--green)}
+  .logo .mark{width:30px;height:30px;border:2px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .nav-links{display:flex;gap:34px;font-size:15px;color:var(--ink-soft);font-weight:500}
+  .nav-links a:hover{color:var(--green)}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:9px;font-weight:700;cursor:pointer;border:1.5px solid transparent;font-size:15px;font-family:inherit}
+  .btn-green{background:var(--green);color:#fff;padding:9px 18px}
+  .btn-green:hover{background:var(--green-d)}
+  .btn-ghost{background:#fff;color:var(--ink);border-color:var(--line);padding:9px 18px}
+  .btn-ghost:hover{border-color:var(--green);color:var(--green)}
+
+  /* hero */
+  .hero{padding:64px 0 8px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .badge{display:inline-flex;align-items:center;gap:7px;background:var(--green-bg);color:var(--green-d);border:1px solid var(--green-l);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;margin-bottom:22px}
+  h1.hero-h{font-size:52px;line-height:1.18;font-weight:900;letter-spacing:-.5px}
+  h1.hero-h .l3{font-size:34px;display:inline-block;margin-top:6px}
+  .hero-sub{font-size:17px;color:var(--ink-soft);margin:22px 0 28px;max-width:520px}
+  .hero-cta{display:flex;gap:14px;margin-bottom:22px}
+  .btn-lg{padding:14px 26px;font-size:16px}
+  .trust{display:flex;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--ink-mute)}
+  .trust span{display:inline-flex;align-items:center;gap:6px}
+  .check{color:var(--green);font-weight:900}
+
+  /* hero visual */
+  .visual{position:relative;min-height:420px}
+  .dash{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(16,24,40,.10);padding:24px;position:relative;z-index:2}
+  .dash-row{display:flex;align-items:flex-start;justify-content:space-between}
+  .dash-stat{display:flex;align-items:center;gap:12px}
+  .stat-ico{width:42px;height:42px;border-radius:11px;background:var(--green);display:flex;align-items:center;justify-content:center}
+  .stat-ico svg{stroke:#fff}
+  .dash-label{font-size:13px;color:var(--ink-mute)}
+  .dash-num{font-size:30px;font-weight:900}
+  .dash-delta{color:var(--green);font-weight:800;font-size:15px}
+  .bars{display:flex;align-items:flex-end;gap:12px;height:140px;margin-top:26px;padding:0 4px}
+  .bars i{flex:1;background:#e8efe9;border-radius:6px 6px 0 0;display:block}
+  .bars i.hi{background:var(--green)}
+  .chip{position:absolute;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:0 12px 30px rgba(16,24,40,.12);padding:11px 14px;display:flex;align-items:center;gap:10px;z-index:3}
+  .chip .ci{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+  .chip small{display:block;font-size:12px;color:var(--ink-mute)}
+  .chip b{font-size:15px}
+  .chip.members{left:-26px;top:160px}
+  .chip.speed{right:-22px;top:118px}
+  .chip.income{left:8px;bottom:-6px}
+  .chip.done{right:8px;bottom:48px;border-color:var(--green-l)}
+  .globe{position:absolute;right:60px;bottom:6px;width:54px;height:54px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 12px 30px rgba(22,163,74,.4)}
+
+  /* stats bar */
+  .statsbar{padding:44px 0 64px}
+  .statsbar .row{display:flex;justify-content:center;gap:96px;text-align:center}
+  .statsbar .big{font-size:38px;font-weight:900}
+  .statsbar .cap{font-size:14px;color:var(--ink-mute);margin-top:2px}
+
+  /* section */
+  section.block{padding:72px 0;border-top:1px solid var(--line)}
+  .sec-head{text-align:center;max-width:680px;margin:0 auto 48px}
+  .sec-head h2{font-size:34px;font-weight:900;letter-spacing:-.5px}
+  .sec-head p{font-size:16px;color:var(--ink-soft);margin-top:14px}
+
+  /* feature cards */
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{border:1px solid var(--line);border-radius:16px;padding:26px;transition:.2s;background:#fff}
+  .card:hover{border-color:var(--green-l);box-shadow:0 14px 34px rgba(16,24,40,.07);transform:translateY(-3px)}
+  .fico{width:46px;height:46px;border-radius:12px;background:var(--green-bg);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .fico svg{stroke:var(--green)}
+  .card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+  .card p{font-size:14.5px;color:var(--ink-soft);line-height:1.7}
+
+  /* slug */
+  .slug-box{max-width:680px;margin:0 auto}
+  .slug-input{display:flex;align-items:stretch;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .slug-input input{flex:1;border:0;padding:16px 18px;font-size:16px;font-family:inherit;outline:none;color:var(--ink)}
+  .slug-input .suffix{display:flex;align-items:center;padding:0 18px;background:var(--bg-soft);color:var(--ink-mute);font-size:15px;border-left:1px solid var(--line)}
+  .slug-btn{display:block;width:100%;margin-top:16px;background:#9ad3b0;color:#fff;border:0;border-radius:11px;padding:14px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer}
+  .slug-hint{text-align:center;font-size:13px;color:var(--ink-mute);margin-top:16px}
+
+  /* pricing */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+  .plan{border:1px solid var(--line);border-radius:18px;padding:30px 26px;background:#fff;position:relative}
+  .plan.pop{border:2px solid var(--green);box-shadow:0 20px 48px rgba(22,163,74,.14);transform:translateY(-8px)}
+  .pop-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px}
+  .plan .pname{font-size:20px;font-weight:900}
+  .plan .pgoal{font-size:13px;color:var(--green-d);background:var(--green-bg);border-radius:7px;padding:6px 10px;margin:12px 0 18px;display:inline-block;font-weight:500;line-height:1.5}
+  .plan .price{font-size:40px;font-weight:900;letter-spacing:-1px}
+  .plan .price small{font-size:15px;color:var(--ink-mute);font-weight:500}
+  .plan ul{list-style:none;margin:22px 0;display:flex;flex-direction:column;gap:12px}
+  .plan li{font-size:14.5px;color:var(--ink-soft);display:flex;align-items:flex-start;gap:9px}
+  .plan li .lk{color:var(--green);font-weight:900;flex:none}
+  .plan li.key{color:var(--ink);font-weight:700}
+  .plan li.key .lk{color:var(--amber)}
+  .plan .pbtn{display:block;width:100%;text-align:center;padding:13px;border-radius:11px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit}
+  .pbtn.fill{background:var(--green);color:#fff;border:1.5px solid var(--green)}
+  .pbtn.fill:hover{background:var(--green-d)}
+  .pbtn.line{background:#fff;color:var(--green-d);border:1.5px solid var(--green)}
+  .pbtn.line:hover{background:var(--green-bg)}
+  .plan-note{text-align:center;color:var(--ink-mute);font-size:14px;margin-top:34px}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);background:var(--bg-soft);padding:54px 0 28px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:32px}
+  .foot-brand .logo{font-size:18px;margin-bottom:12px}
+  .foot-brand p{font-size:14px;color:var(--ink-mute);max-width:280px}
+  .foot-col h4{font-size:14px;font-weight:700;margin-bottom:14px}
+  .foot-col a,.foot-col div{display:block;font-size:14px;color:var(--ink-mute);margin-bottom:10px}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:40px;padding-top:22px;font-size:13px;color:var(--ink-mute)}
+  .foot-bottom .soc{display:flex;gap:20px}
+
+  /* load anim */
+  .fade{opacity:0;transform:translateY(16px);animation:rise .7s ease forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
+
+  @media(max-width:900px){
+    .hero-grid,.feat,.plans,.foot-grid{grid-template-columns:1fr}
+    .statsbar .row{gap:40px}
+    h1.hero-h{font-size:40px}
+    .nav-links{display:none}
+    .visual{margin-top:30px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav">
+    <div class="logo"><span class="mark">e</span>Echorise</div>
+    <div class="nav-links"><a>產品特色</a><a>選擇網址</a><a>定價方案</a><a>聯絡我們</a></div>
+    <button class="btn btn-green">後台管理</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="fade d1">
+      <span class="badge">✦ 全新推出 Echorise 2.0</span>
+      <h1 class="hero-h">創作者的內容平台<br><span class="green">就該被搜尋到</span><br><span class="l3">流量變現 從 <span class="green">Echorise</span> 開始</span></h1>
+      <p class="hero-sub">由 SEO 團隊打造的內容平台 —— 結構化資料、Sitemap、關鍵字數據全部內建。用自己的網域累積搜尋流量，用會員與付費牆把讀者變收入。3 分鐘開站，你只要專心寫。</p>
+      <div class="hero-cta">
+        <button class="btn btn-green btn-lg">立即免費開站 →</button>
+        <button class="btn btn-ghost btn-lg">觀看示範</button>
+      </div>
+      <div class="trust">
+        <span><i class="check">✓</i> 入門版永久免費</span>
+        <span><i class="check">✓</i> 無需信用卡</span>
+        <span><i class="check">✓</i> 高階方案 14 天試用</span>
+      </div>
+    </div>
+
+    <div class="visual fade d2">
+      <div class="dash">
+        <div class="dash-row">
+          <div class="dash-stat">
+            <div class="stat-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg></div>
+            <div><div class="dash-label">總瀏覽量</div><div class="dash-num">12,543</div></div>
+          </div>
+          <div class="dash-delta">+24.5%</div>
+        </div>
+        <div class="bars">
+          <i style="height:46%"></i><i style="height:62%"></i><i style="height:40%"></i><i style="height:72%"></i><i class="hi" style="height:96%"></i><i style="height:58%"></i><i style="height:80%"></i><i style="height:50%"></i>
+        </div>
+      </div>
+      <div class="chip members"><span class="ci" style="background:#dbeafe"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/></svg></span><div><small>訂閱會員</small><b>328</b></div></div>
+      <div class="chip speed"><span class="ci" style="background:#fef3c7"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.4"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><div><small>建站速度</small><b>3 分鐘</b></div></div>
+      <div class="chip income"><span class="ci" style="background:#dcfce7"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h3a2 2 0 010 4h-3"/></svg></span><div><small>月收益</small><b>NT$2.4K</b></div></div>
+      <div class="chip done"><span class="check">✓</span><b style="font-size:14px;color:var(--green-d)">網站建置成功！</b></div>
+      <div class="globe"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="statsbar">
+  <div class="wrap row fade d3">
+    <div><div class="big">NT$0</div><div class="cap">入門永久免費</div></div>
+    <div><div class="big">3 分鐘</div><div class="cap">自動建站</div></div>
+    <div><div class="big green">SEO</div><div class="cap">結構化資料全內建</div></div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="block" style="border-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>為什麼選擇 Echorise？</h2>
+      <p>我們是靠 SEO 排上第一頁的團隊，現在把這套 know-how 變成平台。你專心寫，被搜尋到的事交給我們。</p>
+    </div>
+    <div class="feat">
+      <div class="card">
+        <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 17l6-6 4 4 7-7"/><path d="M14 8h6v6"/></svg></div>
+        <h3>SEO 做對了，數據看得懂</h3>
+        <p>結構化資料、Sitemap、Canonical 全內建，連 AI 搜尋都讀得懂你的內容；後台直接看 GA 流量＋GSC 關鍵字，不用切換工具。</p>
+      </div>
+      <div class="card">
+        <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>3 分鐘開站，不用碰程式</h3>
+        <p>選方案、設網址、開通全自動。沒有主機、外掛、SSL 要煩，省下好幾個月與煩雜設定搏鬥。</p>
+      </div>
+      <div class="card">
+        <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M16 7l2 2 3-3"/></svg></div>
+        <h3>把讀者變收入</h3>
+        <p>付費牆、訂閱、金流、發票一站到位。讀者付的錢進你口袋，不會通過平台。</p>
+      </div>
+      <div class="card">
+        <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div>
+        <h3>維運雜事，自動處理</h3>
+        <p>SSL、網域、資料庫、備份全自動。網站穩穩跑，你不用當半個工程師。</p>
+      </div>
+      <div class="card">
+        <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 7h16M4 12h10M4 17h16"/><path d="M16 14l4 3-4 3" /></svg></div>
+        <h3>從 WordPress、Medium 一鍵搬家</h3>
+        <p>既有文章直接匯入，分類、標籤、網址都帶著走。換平台不用重來，SEO 累積不歸零。</p>
+      </div>
+      <div class="card">
+        <div class="fico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div>
+        <h3>自己的網域，自己的識別</h3>
+        <p>專業版以上綁定自有網域，搜尋權重和品牌信任都累積在你身上。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLUG -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>先挑一個專屬網址，免費開始</h2>
+      <p>現在用 .echo-rise.com 子網域起步，之後隨時能換成自己的網域。</p>
+    </div>
+    <div class="slug-box">
+      <div class="slug-input">
+        <input value="my-blog" />
+        <div class="suffix">.echo-rise.com</div>
+      </div>
+      <button class="slug-btn">🔍 檢查可用性</button>
+      <div class="slug-hint">使用 3-20 個字元，僅限小寫英文字母、數字和連字號 (-)</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>選擇最適合你的方案</h2>
+      <p>所有方案均為年繳制，享受更優惠的價格</p>
+    </div>
+    <div class="plans">
+      <!-- Starter -->
+      <div class="plan">
+        <div class="pname">入門版</div>
+        <span class="pgoal">流量起步——免費累積你的第一批內容與讀者</span>
+        <div class="price">免費</div>
+        <ul>
+          <li><span class="lk">✓</span>免費子網域使用</li>
+          <li><span class="lk">✓</span>文章管理與分類</li>
+          <li><span class="lk">✓</span>基礎 SEO 設定</li>
+          <li><span class="lk">✓</span>1 組管理員帳號</li>
+          <li><span class="lk">✓</span>2 組使用者帳號</li>
+          <li><span class="lk">✓</span>標準主題樣式</li>
+        </ul>
+        <button class="pbtn line">免費開始</button>
+      </div>
+      <!-- Pro -->
+      <div class="plan pop">
+        <span class="pop-tag">最受歡迎</span>
+        <div class="pname">專業版</div>
+        <span class="pgoal">認真做 SEO——用自己的網域，把搜尋流量做大</span>
+        <div class="price">NT$ 10,000 <small>/ 年</small></div>
+        <ul>
+          <li class="key"><span class="lk">✓</span>SEO 流量儀表板</li>
+          <li><span class="lk">✓</span>自訂網域綁定</li>
+          <li><span class="lk">✓</span>Google Analytics 整合</li>
+          <li><span class="lk">✓</span>1 組管理員帳號</li>
+          <li><span class="lk">✓</span>5 組使用者帳號（可設定權限）</li>
+          <li><span class="lk">✓</span>進階主題自訂</li>
+          <li><span class="lk">✓</span>可付費隱藏廣告</li>
+        </ul>
+        <button class="pbtn fill">立即訂閱</button>
+      </div>
+      <!-- Business -->
+      <div class="plan">
+        <div class="pname">商業版</div>
+        <span class="pgoal">內容變現——開啟付費訂閱，把讀者變收入</span>
+        <div class="price">NT$ 35,000 <small>/ 年</small></div>
+        <ul>
+          <li class="key"><span class="lk">✓</span>內含會員訂閱功能</li>
+          <li class="key"><span class="lk">✓</span>專人一對一搬家服務</li>
+          <li><span class="lk">✓</span>完全無廣告體驗</li>
+          <li><span class="lk">✓</span>付費牆與訂閱管理</li>
+          <li><span class="lk">✓</span>不限管理員數量</li>
+          <li><span class="lk">✓</span>完整權限控制系統</li>
+          <li><span class="lk">✓</span>優先技術支援</li>
+        </ul>
+        <button class="pbtn line">立即訂閱</button>
+      </div>
+    </div>
+    <div class="plan-note">入門版永久免費，可隨時升級或降級</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><span class="mark">e</span>Echorise</div>
+        <p>為品牌、企業與創作者打造的 SEO 內容平台。你專心寫，被搜尋到的事交給我們。</p>
+      </div>
+      <div class="foot-col">
+        <h4>產品</h4>
+        <a>產品特色</a><a>定價方案</a><a>使用案例</a><a>更新日誌</a>
+      </div>
+      <div class="foot-col">
+        <h4>法律條款</h4>
+        <a>隱私政策</a><a>服務條款</a><a>退款政策</a><a>免責聲明</a>
+      </div>
+      <div class="foot-col">
+        <h4>聯絡我們</h4>
+        <div>✉ support@echorise.com</div>
+        <div>📞 +886 2 1234 5678</div>
+        <div>📍 台北市信義區信義路五段 7 號</div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Echorise 2.0. All rights reserved.</div>
+      <div class="soc"><a>Facebook</a><a>Twitter</a><a>Instagram</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
