@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 名場面 — 我這一年跟 AI 合作最慘的三次翻車</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #2b2926;
+    --ink-soft: #5a5854;
+    --ink-mute: #8a8783;
+    --accent: #c89f7c;
+    --accent-soft: #e8d5c0;
+    --accent-bg: #faf5ef;
+    --line: #e5e2dd;
+    --line-soft: #f0ede8;
+    --box-bg: #f7f5f1;
+    --danger: #c85a4a;
+    --danger-bg: #fbeeeb;
+    --ok: #6b8e5a;
+    --ok-bg: #eff3ea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #eeece7;
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    font-feature-settings: "palt";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    background: var(--bg);
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 64px 72px;
+    display: none;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
+  }
+  .slide.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Common typography */
+  .eyebrow {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .title-xl {
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .title-lg {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .title-md {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .subtitle {
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .body {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .body-soft {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .caption {
+    font-size: 14px;
+    color: var(--ink-mute);
+    letter-spacing: 0.02em;
+  }
+
+  /* Page number & branding */
+  .page-num {
+    position: absolute;
+    bottom: 24px;
+    right: 32px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.08em;
+  }
+  .brand-mark {
+    position: absolute;
+    top: 32px;
+    right: 40px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Nav */
+  .nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    background: rgba(255,255,255,0.95);
+    padding: 8px 16px;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    z-index: 100;
+  }
+  .nav button {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-radius: 999px;
+    transition: all 0.15s;
+  }
+  .nav button:hover { background: var(--accent-bg); color: var(--accent); }
+  .nav .counter { padding: 6px 12px; font-size: 13px; color: var(--ink-mute); letter-spacing: 0.05em; }
+
+  /* ─── Slide 1: Cover ─── */
+  .cover {
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .cover .eyebrow-lg {
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 32px;
+    font-weight: 600;
+  }
+  .cover .title-xl { font-size: 76px; margin-bottom: 24px; }
+  .cover .subtitle { font-size: 26px; max-width: 800px; }
+  .cover .meta {
+    margin-top: 56px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    color: var(--ink-mute);
+    font-size: 15px;
+  }
+  .cover .meta .dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .cover-decor {
+    position: absolute;
+    top: 64px;
+    right: 72px;
+    display: flex;
+    gap: 8px;
+  }
+  .cover-decor .num {
+    font-size: 88px;
+    font-weight: 800;
+    color: var(--accent-soft);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* ─── Slide 2: Hook ─── */
+  .hook {
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    padding: 64px 120px;
+  }
+  .hook .quote-mark {
+    font-size: 100px;
+    color: var(--accent);
+    line-height: 1;
+    font-family: Georgia, serif;
+    margin-bottom: -20px;
+    align-self: flex-start;
+  }
+  .hook .quote {
+    font-size: 44px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .hook .quote .highlight {
+    background: linear-gradient(180deg, transparent 60%, var(--accent-soft) 60%);
+    padding: 0 4px;
+  }
+  .hook .attribution {
+    margin-top: 40px;
+    font-size: 18px;
+    color: var(--ink-mute);
+    align-self: flex-start;
+  }
+
+  /* ─── Slide 3: Agenda ─── */
+  .agenda-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .agenda-card {
+    background: var(--box-bg);
+    border-radius: 8px;
+    padding: 32px 28px;
+    border-top: 3px solid var(--accent);
+  }
+  .agenda-card .num {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .agenda-card .cat {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .agenda-card .desc {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .agenda-flow {
+    margin-top: 40px;
+    padding: 20px 28px;
+    background: var(--accent-bg);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .agenda-flow strong { color: var(--accent); font-weight: 700; }
+  .agenda-flow .arrow { color: var(--accent); }
+
+  /* ─── Section Openers (P4, P8, P11) ─── */
+  .section-open {
+    justify-content: center;
+    align-items: flex-start;
+    padding: 64px 96px;
+  }
+  .section-open .tag {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-bottom: 32px;
+  }
+  .section-open .huge-num {
+    font-size: 200px;
+    font-weight: 800;
+    color: var(--accent-soft);
+    line-height: 1;
+    position: absolute;
+    top: 40%;
+    right: 96px;
+    transform: translateY(-50%);
+    letter-spacing: -0.04em;
+  }
+  .section-open .section-title {
+    font-size: 68px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .section-open .section-sub {
+    font-size: 24px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 600px;
+  }
+  .section-open .preview {
+    margin-top: 48px;
+    display: flex;
+    gap: 32px;
+    color: var(--ink-mute);
+    font-size: 15px;
+  }
+  .section-open .preview .item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-open .preview .item::before {
+    content: "";
+    display: block;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* ─── Case Study Slides (P5, P6, P9, etc.) ─── */
+  .case {
+    padding: 48px 64px;
+  }
+  .case-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .case-tag {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: var(--accent-bg);
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+  .case-title {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.005em;
+  }
+
+  /* Chat / mock message boxes */
+  .mock-block {
+    background: var(--box-bg);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--line);
+  }
+  .mock-block.ai {
+    border-left-color: var(--accent);
+    background: var(--accent-bg);
+  }
+  .mock-block.human {
+    border-left-color: var(--ink-soft);
+    background: var(--box-bg);
+  }
+  .mock-block.danger {
+    border-left-color: var(--danger);
+    background: var(--danger-bg);
+  }
+  .mock-block.ok {
+    border-left-color: var(--ok);
+    background: var(--ok-bg);
+  }
+  .mock-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .mock-block.ai .mock-label { color: var(--accent); }
+  .mock-block.danger .mock-label { color: var(--danger); }
+  .mock-block.ok .mock-label { color: var(--ok); }
+  .mock-content {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .mock-content .strike-red {
+    text-decoration: line-through;
+    color: var(--danger);
+    text-decoration-thickness: 2px;
+  }
+  .mock-content .mark-red {
+    background: #ffe0da;
+    padding: 1px 4px;
+    color: var(--danger);
+    font-weight: 600;
+  }
+  .mock-content .mark-yellow {
+    background: #fff2c4;
+    padding: 1px 4px;
+    font-weight: 600;
+  }
+
+  /* Report screenshot mock */
+  .report-mock {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .report-mock .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  .report-mock .report-title-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .report-mock .report-date {
+    font-size: 12px;
+    color: var(--ink-mute);
+  }
+  .report-mock .report-line {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  /* Takeaway box */
+  .takeaway {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 2px solid var(--accent);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .takeaway-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-top: 3px;
+  }
+  .takeaway-text {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* Two-column case */
+  .case-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1;
+  }
+  .col-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .col-label.accent { color: var(--accent); }
+  .col-label.danger { color: var(--danger); }
+  .col-label.ok { color: var(--ok); }
+
+  /* Principles slide (P7 lower half, P10 lower half, P13 lower half) */
+  .principles {
+    margin-top: 16px;
+    padding: 20px 24px;
+    background: var(--accent-bg);
+    border-radius: 6px;
+  }
+  .principles .p-header {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .principles ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .principles li {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    padding: 4px 0 4px 20px;
+    position: relative;
+  }
+  .principles li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  /* Calendar mock */
+  .cal-mock {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px;
+    font-size: 13px;
+  }
+  .cal-mock.wrong { border-color: var(--danger); }
+  .cal-mock.right { border-color: var(--ok); }
+  .cal-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 10px;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    text-align: center;
+  }
+  .cal-grid .day-head {
+    font-size: 11px;
+    color: var(--ink-mute);
+    padding: 4px 0;
+    font-weight: 600;
+  }
+  .cal-grid .day {
+    padding: 8px 4px;
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--line-soft);
+    border-radius: 3px;
+  }
+  .cal-grid .day.empty { background: transparent; }
+  .cal-grid .day.mark-wrong { background: #ffe0da; color: var(--danger); font-weight: 700; }
+  .cal-grid .day.mark-right { background: #d5e5c8; color: var(--ok); font-weight: 700; }
+
+  /* Final principle slide */
+  .final {
+    justify-content: center;
+    padding: 64px 96px;
+  }
+  .final .final-eyebrow {
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .final-principle {
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+  .final-principle:last-of-type { border-bottom: 1px solid var(--line); }
+  .final-principle .p-num {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  .final-principle .p-text {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .final-principle .p-text .highlight {
+    background: linear-gradient(180deg, transparent 60%, var(--accent-soft) 60%);
+    padding: 0 4px;
+  }
+  .final-principle .p-note {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+  .final .qa {
+    margin-top: 48px;
+    text-align: center;
+    color: var(--ink-mute);
+    font-size: 17px;
+  }
+  .final .qa strong { color: var(--accent); font-weight: 600; }
+
+  /* Print / small screens */
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .stage { aspect-ratio: auto; min-height: 90vh; }
+    .slide { padding: 32px 24px; }
+    .title-xl { font-size: 40px; }
+    .cover .title-xl { font-size: 44px; }
+    .cover .subtitle { font-size: 18px; }
+    .cover-decor { display: none; }
+    .hook { padding: 32px 24px; }
+    .hook .quote { font-size: 26px; }
+    .agenda-grid { grid-template-columns: 1fr; gap: 12px; }
+    .section-open { padding: 32px 24px; }
+    .section-open .section-title { font-size: 40px; }
+    .section-open .huge-num { font-size: 100px; right: 24px; opacity: 0.5; }
+    .case { padding: 24px 20px; }
+    .case-title { font-size: 24px; }
+    .case-two-col { grid-template-columns: 1fr; }
+    .final { padding: 24px 20px; }
+    .final-principle .p-text { font-size: 22px; }
+    .takeaway-text { font-size: 16px; }
+    .mock-content { font-size: 15px; }
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .stage { box-shadow: none; page-break-after: always; max-width: 100%; }
+    .slide { display: flex !important; position: relative; page-break-after: always; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+<!-- ─────────── SLIDE 1 · COVER ─────────── -->
+<section class="slide cover active" data-slide="1">
+  <div class="cover-decor">
+    <span class="num">名場面</span>
+  </div>
+  <div class="eyebrow-lg">AI × 行銷公關實戰</div>
+  <h1 class="title-xl">AI 名場面</h1>
+  <p class="subtitle">我這一年跟 AI 合作最慘的三次翻車<br>——還有我後來怎麼處理</p>
+  <div class="meta">
+    <span>筑今數位設計</span>
+    <span class="dot"></span>
+    <span>技術會議分享</span>
+    <span class="dot"></span>
+    <span>Maru</span>
+  </div>
+  <div class="brand-mark">CREER</div>
+  <div class="page-num">01 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 2 · HOOK ─────────── -->
+<section class="slide hook" data-slide="2">
+  <div class="quote-mark">"</div>
+  <p class="quote">
+    我這一年跟 AI 合作最慘的翻車,<br>
+    都不是它<span class="highlight">不會做</span>——<br>
+    是它太會<span class="highlight">裝作它會做</span>。
+  </p>
+  <p class="attribution">— 今天想跟大家分享三種產品裡的名場面</p>
+  <div class="page-num">02 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 3 · AGENDA ─────────── -->
+<section class="slide" data-slide="3">
+  <div class="eyebrow">Agenda</div>
+  <h2 class="title-lg">今天要講什麼</h2>
+  <p class="subtitle">三種產品類型 · 各挑一個名場面 · 收在兩句我自己驗證過的原則</p>
+
+  <div class="agenda-grid">
+    <div class="agenda-card">
+      <div class="num">01</div>
+      <div class="cat">SEO 報告</div>
+      <div class="desc">當 AI 開始幫你的數據找解釋</div>
+    </div>
+    <div class="agenda-card">
+      <div class="num">02</div>
+      <div class="cat">社群圖文</div>
+      <div class="desc">當 AI 開始幫廠商發明產品規格</div>
+    </div>
+    <div class="agenda-card">
+      <div class="num">03</div>
+      <div class="cat">網站文案</div>
+      <div class="desc">跟 AI 合作 HTML 的兩個工作方式</div>
+    </div>
+  </div>
+
+  <div class="agenda-flow">
+    每一段的節奏: <strong>名場面</strong> <span class="arrow">→</span> <strong>我怎麼發現</strong> <span class="arrow">→</span> <strong>我後來怎麼做</strong>
+  </div>
+
+  <div class="page-num">03 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 4 · SECTION 1 OPENER ─────────── -->
+<section class="slide section-open" data-slide="4">
+  <span class="tag">名場面 #1</span>
+  <h2 class="section-title">SEO 報告</h2>
+  <p class="section-sub">當 AI 開始幫你的<br>數據找解釋</p>
+  <div class="preview">
+    <div class="item">春雨「首度獨立顯現」</div>
+    <div class="item">映象 Unassigned 三次改標籤</div>
+    <div class="item">LINE 邀約的樂觀偏誤</div>
+  </div>
+  <div class="huge-num">01</div>
+  <div class="page-num">04 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 5 · 春雨「Organic Video 首度獨立顯現」 ─────────── -->
+<section class="slide case" data-slide="5">
+  <div class="case-header">
+    <span class="case-tag">SEO 報告 · 場景 1</span>
+    <span class="caption"><a href="https://maaruu0420.github.io/ssid/%E6%98%A5%E9%9B%A8SEO%E5%A0%B1%E5%91%8A_20260508-0607" target="_blank">春雨空間設計 · 月度 SEO 報告</a></span>
+  </div>
+  <h3 class="case-title">當「好消息」其實是下滑</h3>
+
+  <div style="margin-bottom: 20px;">
+    <div class="col-label">AI 幫我寫的本月報告區塊 ↓</div>
+  </div>
+
+  <div class="report-mock" style="margin-bottom: 20px;">
+    <div class="report-header">
+      <div class="report-title-text">春雨空間設計 · 2026 年 X 月 SEO 月報</div>
+      <div class="report-date">流量來源分析</div>
+    </div>
+    <div class="report-line">
+      本月最值得注意的一項亮點:<span class="mark-yellow">Organic Video 首度獨立顯現</span>,顯示影音搜尋開始為品牌帶來新的曝光管道⋯⋯
+    </div>
+  </div>
+
+  <div class="mock-block human">
+    <div class="mock-label">我做的事</div>
+    <div class="mock-content">
+      去比對上一期報告 → <strong>Organic Video 本來就有,而且這個月還下滑</strong>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Takeaway</div>
+    <div class="takeaway-text">AI 會用「聽起來合理的話」把數據包裝成好消息。<br>這種句子最可怕,因為它讀起來完全沒問題。</div>
+  </div>
+
+  <div class="page-num">05 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 6 · 映象 Unassigned 三次改標籤 ─────────── -->
+<section class="slide case" data-slide="6">
+  <div class="case-header">
+    <span class="case-tag">SEO 報告 · 場景 2</span>
+    <span class="caption"><a href="https://maaruu0420.github.io/2ndmoto/June2026" target="_blank">映象車業</a> · Unassigned 流量暴增 1,878%</span>
+  </div>
+  <h3 class="case-title">AI 的三次改口</h3>
+
+  <div class="mock-block ai" style="position: relative;">
+    <div class="mock-label">AI v1</div>
+    <div class="mock-content">流量標籤:<span class="mark-red">異常 ↑</span></div>
+  </div>
+  <div style="text-align: center; color: var(--ink-mute); font-size: 13px; padding: 2px 0;">↓ 我補了地區維度給它</div>
+
+  <div class="mock-block ai">
+    <div class="mock-label">AI v2</div>
+    <div class="mock-content">流量標籤:<span class="mark-yellow">LINE 分享流入</span></div>
+  </div>
+  <div style="text-align: center; color: var(--ink-mute); font-size: 13px; padding: 2px 0;">↓ 我問「你怎麼確定是 LINE?」</div>
+
+  <div class="mock-block ok">
+    <div class="mock-label">AI v3(最終版)</div>
+    <div class="mock-content">流量標籤:<strong>口碑分享流入</strong></div>
+  </div>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Takeaway</div>
+    <div class="takeaway-text">AI 會下太過肯定的結論,人要當懷疑論者。<br>標籤演進三次,每次都是我把它的假設打回來。</div>
+  </div>
+
+  <div class="page-num">06 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 7 · LINE 邀約 + SEO 段落收束 ─────────── -->
+<section class="slide case" data-slide="7">
+  <div class="case-header">
+    <span class="case-tag">SEO 報告 · 場景 3 + 段落收束</span>
+    <span class="caption">春雨 · 客戶端訊息</span>
+  </div>
+  <h3 class="case-title">數字沒錯,但語氣錯了</h3>
+
+  <div class="mock-block ai">
+    <div class="mock-label">AI 寫的 LINE 邀約(第一版)</div>
+    <div class="mock-content">
+      「這幾個月的報表都在<span class="mark-red">穩定成長</span>,想跟您約個時間分享⋯⋯」
+    </div>
+  </div>
+
+  <div class="mock-block human">
+    <div class="mock-label">實際脈絡</div>
+    <div class="mock-content">
+      近兩年數據其實不如以前 · 這種話不能講 · 但 AI 不知道
+    </div>
+  </div>
+
+  <div class="principles">
+    <div class="p-header">SEO 段落 · 我學到的三件事</div>
+    <ul>
+      <li>AI 有<strong>樂觀偏誤</strong>,會把「還可以」寫成「很不錯」</li>
+      <li><strong>跨期比對</strong>是人的責任,不是 AI 的責任</li>
+      <li>客戶溝通的<strong>語氣校準</strong>,AI 抓不到——它不知道我們跟這個客戶合作了幾年</li>
+    </ul>
+  </div>
+
+  <div class="page-num">07 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 8 · SECTION 2 OPENER ─────────── -->
+<section class="slide section-open" data-slide="8">
+  <span class="tag">名場面 #2</span>
+  <h2 class="section-title">社群圖文</h2>
+  <p class="section-sub">當 AI 開始<br>幫廠商發明產品規格</p>
+  <div class="preview">
+    <div class="item">Berryalloc 的保固與拼法</div>
+    <div class="item">KD 的「不只 X 還能 Y」變「把 X 調回 Y」</div>
+  </div>
+  <div class="huge-num">02</div>
+  <div class="page-num">08 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 9 · Berryalloc 保固與魚骨拼 ─────────── -->
+<section class="slide case" data-slide="9">
+  <div class="case-header">
+    <span class="case-tag">社群 · 場景 1</span>
+    <span class="caption">協會 12 家廠商文案專案 · <a href="https://www.tnaid.org/info/272.html" target="_blank">Berryalloc</a></span>
+  </div>
+  <h3 class="case-title">AI 幫廠商發明了保固</h3>
+
+  <div style="margin-bottom: 12px;"><div class="col-label">AI 產出的文案段落 ↓</div></div>
+
+  <div class="mock-block danger">
+    <div class="mock-label">AI 寫的社群文案(節錄)</div>
+    <div class="mock-content">
+      「⋯⋯值得一提的是,Berryalloc 提供<span class="mark-red">原廠 15 年住宅抗水保固</span>,加上經典的<span class="mark-red">魚骨拼</span>地板花色⋯⋯」
+    </div>
+  </div>
+
+  <div class="case-two-col" style="margin-top: 16px;">
+    <div>
+      <div class="col-label danger">廠商實際狀況</div>
+      <div class="mock-block" style="border-left-color: var(--danger); background: white;">
+        <div class="mock-content">
+          · 保固範圍完全不是 15 年抗水<br>
+          · 只做<strong>人字拼</strong>,不做魚骨拼<br>
+          · 全文出現 <strong>9 處</strong>要抓出來刪
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-label accent">為什麼危險</div>
+      <div class="mock-block" style="border-left-color: var(--accent); background: white;">
+        <div class="mock-content">
+          它不是亂寫,<br>
+          它是<strong>拿其他品牌的常見說法套過來</strong>——<br>
+          有出處,但錯地方
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Takeaway</div>
+    <div class="takeaway-text">AI 會用它「以為的常識」<br>補完你沒給的資訊。</div>
+  </div>
+
+  <div class="page-num">09 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 10 · KD 詮釋超綱 + 社群段收束 ─────────── -->
+<section class="slide case" data-slide="10">
+  <div class="case-header">
+    <span class="case-tag">社群 · 場景 2 + 段落收束</span>
+    <span class="caption">協會 · KD 科定</span>
+  </div>
+  <h3 class="case-title">柔性補充,被 AI 悄悄改成二元置換</h3>
+
+  <div class="case-two-col" style="margin-bottom: 16px;">
+    <div>
+      <div class="col-label ok">廠商原意</div>
+      <div class="mock-block ok">
+        <div class="mock-content">
+          「不只 A,<strong>還能</strong> B」<br>
+          <span style="font-size: 14px; color: var(--ink-mute);">(柔性補充)</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-label danger">AI 詮釋成</div>
+      <div class="mock-block danger">
+        <div class="mock-content">
+          「把 A <strong>調回</strong> B」<br>
+          <span style="font-size: 14px; color: var(--ink-mute);">(二元置換)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mock-block human">
+    <div class="mock-label">我做的事(這一步救了我)</div>
+    <div class="mock-content">
+      直接問 AI:「這個核心敘事,是廠商說的嗎?」<br>
+      → AI 主動盤點後承認:<strong>不是廠商說的</strong>
+    </div>
+  </div>
+
+  <div class="principles">
+    <div class="p-header">社群 / 文案段落 · 我學到的三件事</div>
+    <ul>
+      <li>AI 會用「聽起來合理」的東西<strong>補完你沒給的</strong></li>
+      <li>產品類文案要盤點:<strong>哪些是廠商原文、哪些是 AI 詮釋</strong></li>
+      <li>直接問 AI「這是誰說的」比自己 debug 快</li>
+    </ul>
+  </div>
+
+  <div class="page-num">10 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 11 · SECTION 3 OPENER ─────────── -->
+<section class="slide section-open" data-slide="11">
+  <span class="tag">名場面 #3</span>
+  <h2 class="section-title">網站文案 / HTML</h2>
+  <p class="section-sub">跟 AI 合作 HTML 的<br>兩個工作方式</p>
+  <div class="preview">
+    <div class="item">寬堂日曆的「錨點教訓」</div>
+    <div class="item">映象的 patch 格式</div>
+  </div>
+  <div class="huge-num">03</div>
+  <div class="page-num">11 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 12 · 寬堂日曆錨點 ─────────── -->
+<section class="slide case" data-slide="12">
+  <div class="case-header">
+    <span class="case-tag">網站 · 場景 1</span>
+    <span class="caption"><a href="https://maaruu0420.github.io/harmonize/harmonize_marketing_0615_0714.html" target="_blank">寬堂空間設計</a> · 社群排程 HTML 日曆</span>
+  </div>
+  <h3 class="case-title">「五月不對」vs「5/1 = 週五」</h3>
+
+  <div class="case-two-col" style="margin-bottom: 16px;">
+    <div>
+      <div class="col-label danger">我的指令 v1(抽象描述)</div>
+      <div class="mock-block danger" style="min-height: 90px; display: flex; align-items: center;">
+        <div class="mock-content" style="font-size: 22px; font-weight: 600;">「五月不對」</div>
+      </div>
+      <div style="text-align: center; color: var(--ink-mute); font-size: 13px; padding: 8px 0;">↓ AI 再排一次,還是錯</div>
+      <div class="cal-mock wrong">
+        <div class="cal-title" style="color: var(--danger);">五月 · AI 排錯</div>
+        <div class="cal-grid">
+          <div class="day-head">日</div><div class="day-head">一</div><div class="day-head">二</div><div class="day-head">三</div><div class="day-head">四</div><div class="day-head">五</div><div class="day-head">六</div>
+          <div class="day mark-wrong">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-label ok">我的指令 v2(具體錨點)</div>
+      <div class="mock-block ok" style="min-height: 90px; display: flex; align-items: center;">
+        <div class="mock-content" style="font-size: 22px; font-weight: 600;">「5/1 = 週五、6/1 = 週一」</div>
+      </div>
+      <div style="text-align: center; color: var(--ink-mute); font-size: 13px; padding: 8px 0;">↓ 一次到位</div>
+      <div class="cal-mock right">
+        <div class="cal-title" style="color: var(--ok);">五月 · 正確排列</div>
+        <div class="cal-grid">
+          <div class="day-head">日</div><div class="day-head">一</div><div class="day-head">二</div><div class="day-head">三</div><div class="day-head">四</div><div class="day-head">五</div><div class="day-head">六</div>
+          <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day mark-right">1</div><div class="day">2</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Takeaway</div>
+    <div class="takeaway-text">AI 對「具體錨點」的執行力,遠勝「抽象描述」。<br>這件事聽起來很小,但我後來把它當原則用在所有 HTML 修改上。</div>
+  </div>
+
+  <div class="page-num">12 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 13 · patch 格式 + 網站段收束 ─────────── -->
+<section class="slide case" data-slide="13">
+  <div class="case-header">
+    <span class="case-tag">網站 · 場景 2 + 段落收束</span>
+    <span class="caption">映象車業 · HTML 修改工作方式</span>
+  </div>
+  <h3 class="case-title">不要 AI 重生成整份,只要告訴我改哪一段</h3>
+
+  <div class="case-two-col" style="margin-bottom: 16px;">
+    <div>
+      <div class="col-label danger">預設模式(不推薦)</div>
+      <div class="mock-block danger">
+        <div class="mock-content">
+          AI 自主重生成整份 HTML<br>
+          <span style="font-size: 14px; color: var(--ink-mute);">→ 吃 token · 難比對 · 失去掌控</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-label ok">我立的 patch 規則</div>
+      <div class="mock-block ok">
+        <div class="mock-content">
+          「修改位置 : 改成什麼」<br>
+          我自己在本機貼回去<br>
+          <span style="font-size: 14px; color: var(--ink-mute);">→ 省 token · 清楚 · 可掌控</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="principles">
+    <div class="p-header">網站段落 · 我學到的三件事</div>
+    <ul>
+      <li>給<strong>錨點</strong>,不給描述</li>
+      <li>產出要設計成「<strong>事後可調整</strong>」,不用每次都回頭找 AI</li>
+      <li>AI 不是每次都要 <strong>in the loop</strong></li>
+    </ul>
+  </div>
+
+  <div class="page-num">13 / 14</div>
+</section>
+
+<!-- ─────────── SLIDE 14 · 兩句原則 + 收尾 ─────────── -->
+<section class="slide final" data-slide="14">
+  <div class="final-eyebrow">兩句我自己驗證過的原則</div>
+
+  <div class="final-principle">
+    <div class="p-num">01</div>
+    <div class="p-text">
+      糾正時說<span class="highlight">「為什麼」</span>,<br>
+      比說<span class="highlight">「改成什麼」</span>更有價值。
+    </div>
+    <div class="p-note">因為 AI 學到的是判斷邏輯,而不是這一次的答案。</div>
+  </div>
+
+  <div class="final-principle">
+    <div class="p-num">02</div>
+    <div class="p-text">
+      AI 是<span class="highlight">驗證與執行工具</span>,<br>
+      不是<span class="highlight">決策工具</span>。
+    </div>
+    <div class="p-note">策略判斷、跨期脈絡、產業直覺——這些還是要人做。</div>
+  </div>
+
+  <div class="qa">
+    大家有遇過什麼 AI 名場面嗎? <strong>歡迎分享 →</strong>
+  </div>
+
+  <div class="page-num">14 / 14</div>
+</section>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">← 上一頁</button>
+  <span class="counter" id="counter">1 / 14</span>
+  <button onclick="nextSlide()">下一頁 →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('counter');
+  let current = 0;
+
+  function showSlide(idx) {
+    slides.forEach(s => s.classList.remove('active'));
+    slides[idx].classList.add('active');
+    counter.textContent = `${idx + 1} / ${slides.length}`;
+  }
+
+  function nextSlide() {
+    if (current < slides.length - 1) {
+      current++;
+      showSlide(current);
+    }
+  }
+
+  function prevSlide() {
+    if (current > 0) {
+      current--;
+      showSlide(current);
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'Home') { current = 0; showSlide(current); }
+    if (e.key === 'End') { current = slides.length - 1; showSlide(current); }
+  });
+</script>
+
+</body>
+</html>
